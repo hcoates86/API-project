@@ -17,39 +17,16 @@ module.exports = {
      *   isBetaMember: false
      * }], {});
     */
-    options.tableName = 'Reviews';
+    options.tableName = 'Bookings';
     return queryInterface.bulkInsert(options, [
       {
-      spotId: 1,
-      userId: 1,
-      review: 'Average at best.',
-      stars: 3
-      },
-      {
-      spotId: 2,
-      userId: 3,
-      review: 'sucks',
-      stars: 1
-      },
-      {
-      spotId: 3,
-      userId: 2,
-      review: 'Best evaaaar!!!',
-      stars: 5
-      },
-      {
-      spotId: 2,
-      userId: 3,
-      review: 'a decent place to sleep',
-      stars: 3
-      },
-      {
-      spotId: 1,
-      userId: 1,
-      review: 'it is a place',
-      stars: 4
-      },
+        spotId: 1,
+        userId: 1,
+        startDate: '01/01/2021',
+        endDate: '01/02/2021'
+      }
     ], {});
+
   },
 
   async down (queryInterface, Sequelize) {
@@ -59,10 +36,10 @@ module.exports = {
      * Example:
      * await queryInterface.bulkDelete('People', null, {});
      */
-    options.tableName = 'Reviews';
+    options.tableName = 'Bookings';
     const Op = Sequelize.Op;
     return queryInterface.bulkDelete(options, {
-      review: { [Op.in]: ['Average at best.', 'sucks', 'Best evaaaar!!!', 'a decent place to sleep', 'it is a place'] }
+      startDate: { [Op.in]: ['01/01/2021'] }
     }, {});
   }
 };

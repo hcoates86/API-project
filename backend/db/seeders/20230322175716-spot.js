@@ -1,8 +1,10 @@
 'use strict';
+
 let options = {};
 if (process.env.NODE_ENV === 'production') {
   options.schema = process.env.SCHEMA;  // define your schema in options object
 }
+
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up (queryInterface, Sequelize) {
@@ -44,8 +46,8 @@ module.exports = {
         city: 'Jupiter',
         state: 'Texas',
         country: 'United States',
-        lat: 772.5,
-        lng: 773.3,
+        lat: 772.87875,
+        lng: 773.793,
         name: 'Orange Bedroom',
         description: "One bed in a very orange room. No bathroom.",
         price: 55
@@ -55,8 +57,8 @@ module.exports = {
         city: 'Rio',
         state: 'Brazil',
         country: 'Brazil',
-        lat: 220.5,
-        lng: 303.3,
+        lat: -220.5268,
+        lng: -303.3246,
         name: 'Beautiful House',
         description: "One house, everything you need.",
         price: 77
@@ -66,8 +68,8 @@ module.exports = {
         city: 'Springfield',
         state: 'OR',
         country: 'United States',
-        lat: 282.5,
-        lng: 383.3,
+        lat: 282.524564,
+        lng: -383.33765,
         name: 'Mansion',
         description: "You have to clean up after yourself, please be respectful.",
         price: 899
