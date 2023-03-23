@@ -40,8 +40,27 @@ router.get(
     }
   );
 
+  const passUserCheck = (req, res, next) => {
+    const { credential, password } = req.body;
+    const errors = [];
+    const err = new Error();
+    err.message = "Validation error";
+    err.statusCode = 400;
+
+    if (!password) {
+      errors.push("Password is required")
+    } if (!credential) {
+      errors.push("Email or username is required")  
+    }
+
+    if (!errors.length) return next();
+    err.errors = errors;
+    return next(err);
+  }
+
   router.post(
     '/',
+    passUserCheck,
     validateLogin,
     async (req, res, next) => {
       const { credential, password } = req.body;
@@ -56,12 +75,15 @@ router.get(
       });
   
       if (!user || !bcrypt.compareSync(password, user.hashedPassword.toString())) {
-        const err = new Error('Login failed');
-        err.status = 401;
-        err.title = 'Login failed';
-        err.errors = { credential: 'The provided credentials were invalid.' };
+        // const err = new Error('Login failed');
+        // err.status = 401;
+        // err.title = 'Login failed';
+        // err.errors = { credential: 'The provided credentials were invalid.' };
+        const err = new Error();
+        err.message = 'Invalid credentials';
+        err.statusCode = 401;
         return next(err);
-      }
+      } 
   
       const safeUser = {
         id: user.id,
@@ -88,9 +110,9 @@ router.delete(
     }
   );
 
-  // router.use((err, req, res, next) => {
+  // router.use((err, req, res, next) => { //double check these errors
     
-  //   res.json()
+  //   res.json(err)
   // })
 
 
