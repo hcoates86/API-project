@@ -30,6 +30,22 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'Spot',
+    scopes: {
+      keyboard: {
+        where: { type: 'keyboard' }
+      },
+      atStore(storeId) {
+        const { Store } = require('../models');
+        return {
+          where: {
+            storeId
+          },
+          include: [
+            { model: Store }
+          ]
+        }
+      },
+    }
   });
   return Spot;
 };
