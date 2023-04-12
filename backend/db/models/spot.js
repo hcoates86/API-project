@@ -31,17 +31,18 @@ module.exports = (sequelize, DataTypes) => {
     sequelize,
     modelName: 'Spot',
     scopes: {
-      keyboard: {
-        where: { type: 'keyboard' }
-      },
-      atStore(storeId) {
-        const { Store } = require('../models');
+      // defaultScope: {
+      //   attributes: []
+      // },
+      forUser(spotId) {
+        const { SpotImage, Review } = require('../models');
         return {
           where: {
-            storeId
+            spotId
           },
           include: [
-            { model: Store }
+            { model: SpotImage }, 
+            { model: Review }
           ]
         }
       },
