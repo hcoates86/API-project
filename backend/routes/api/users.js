@@ -97,31 +97,4 @@ router.post(
   }
 );
 
-// const reviewTotal = await Review.count();
-// const reviewStars = await Review.sum('stars');
-// const aveStars = reviewStars / reviewTotal;
-
-// router.get('/spots/all', async (req, res, next) => {
-//   const spots = await Spot.findAll({
-    
-//   })
-
-// })
-
-// router.get('/spots/:ownerId', async (req, res, next) => {
-
-//   const user = await User.findByPk(req.params.ownerId)
-//   const spots = 
-
-
-// })
-
-
-// router.get('/spots/:spotId', async (req, res, next) => {
-//   const id = req.params.spotId;
-//   const spots = await Spot.findByPk(id);
-//   const reviewCount = await Spot.getReview
-
-//   res.json(spots, )
-// })
 module.exports = router;

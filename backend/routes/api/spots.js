@@ -11,15 +11,29 @@ const router = express.Router();
 // const reviewStars = await Review.sum('stars');
 // const aveStars = reviewStars / reviewTotal;
 
-router.get('/user', async (req, res, next) => {
+router.get('/user', 
+requireAuth, 
+async (req, res, next) => {
+  const { user } = req;
+  const user1 = await User.findByPk(user.id)
+  const spots = await user1.getSpots()
 
-  const user = await User.findByPk(req.params.ownerId)
-//   const spots =
+  // const reviewCount = await Spot.count({where: {}})
+  // const avg = await Review.sum('stars', { where: { spotId: id}});
+  let spotsCopy = spots.slice(1)
 
+  // let spots2 = spotsCopy.dataValues;
+  
+  // spots2.numReviews = reviewCount;
+  // spots2.avgStarRating = avgStarRating;
+
+  res.json(spotsCopy)
+    // {spots: spots})
 
 })
 
-router.get('/all', async (req, res, next) => {
+//get all spots
+router.get('/', async (req, res, next) => {
   const spots = await Spot.findAll({
     
   })
@@ -37,7 +51,7 @@ router.get('/:spotId', async (req, res, next) => {
     const err = new Error();
     err.statusCode = 404;
     err.message = "Spot couldn't be found";
-    err.title = "Spot couldn't be found";
+    // err.title = "Spot couldn't be found";
     return res.json(err)
   }
 
@@ -66,5 +80,23 @@ router.get('/:spotId', async (req, res, next) => {
 })
 
 
+router.post('/', requireAuth, async (req, res, next) => {
+  const { address, city, state, country, lat, lng, name, description, price } = req.body;
+
+  const spot = await Spot.create( )
+  { address, city, state, country, lat, lng, name, description, price }
+
+  // address
+  // city
+  // state
+  // country
+  // lat
+  // lng
+  // name
+  // description
+  // price
+  res.statusCode = 201;
+
+})
 
 module.exports = router;
