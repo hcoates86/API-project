@@ -20,19 +20,25 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'SpotImage',
-    scopes: {
-    forSpot(spotId) {
-      const { Spot } = require('../models');
-      return {
-        attributes: ['url'],
-        where: {
-          spotId
-        },
-        include: [
-          { model: Spot }
-        ]
-      }
-    }}
+    // scopes: {
+      // defaultScope: {
+      //   where: {
+      //     preview: true
+      //   },
+      //   attributes: { include: ["url"] }
+      // }
+    // forSpot(spotId) {
+    //   const { Spot } = require('../models');
+    //   return {
+    //     attributes: ['url'],
+    //     where: {
+    //       spotId
+    //     },
+    //     include: [
+    //       { model: Spot }
+    //     ]
+      // }
+    // }
   });
   return SpotImage;
 };

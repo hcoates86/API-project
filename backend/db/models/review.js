@@ -27,7 +27,12 @@ module.exports = (sequelize, DataTypes) => {
       attributes: {
         exclude: ["createdAt", "updatedAt"]
       }
-    }
+    },
+    // average(spotId) {
+    //   return {
+
+    //   }
+    // }
   });
   return Review;
 };

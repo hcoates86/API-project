@@ -62,7 +62,7 @@ const infoRequired = async (req, res, next) => {
   if (!firstName) errors.push("First Name is required");
   if (!lastName) errors.push("Last Name is required");
   if (!username) errors.push("Username is required");
-  if (!email || !email.includes('@')) errors.push("Invalid email");
+  if (!email || !email.includes('@') || !email.includes('.')) errors.push("Invalid email");
 
   if (!errors.length) return next();
   err.errors = errors;

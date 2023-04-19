@@ -34,10 +34,12 @@ async (req, res, next) => {
 
 //get all spots
 router.get('/', async (req, res, next) => {
-  const spots = await Spot.findAll({
-    
-  })
+  //   const spots = await Spot.scope({
+  //   method: ["forUser", id ]
+  // }).findAll()
+  const spots = await Spot.findAll()
 
+  res.json(spots)
 })
 
 
@@ -55,7 +57,6 @@ router.get('/:spotId', async (req, res, next) => {
     return res.json(err)
   }
 
-  const reviews = await spots.getReviews();
   const reviewCount = await spots.countReviews();
   const images = await spots.getSpotImages({ attributes: ['id', 'url', 'preview']});
   const owner = await spots.getUser({ attributes: ['id', 'firstName', 'lastName']});
@@ -71,10 +72,6 @@ router.get('/:spotId', async (req, res, next) => {
   spots2.avgStarRating = avgStarRating;
   spots2.SpotImages = images;
   spots2.Owner = owner;
-
-  // const preview = await SpotImage.scope({
-  //   method: ["forSpot", id ]
-  // }).findAll()
 
   res.json(spots2)
 })

@@ -63,16 +63,38 @@ module.exports = {
         description: "One house, everything you need.",
         price: 77
       },
-      { ownerId: 4,
+      { ownerId: 1,
         address: '557 Fake St.',
         city: 'Springfield',
         state: 'OR',
         country: 'United States',
-        lat: 282.524564,
-        lng: -383.33765,
+        lat: 232.524564,
+        lng: -333.33765,
         name: 'Mansion',
         description: "You have to clean up after yourself, please be respectful.",
+        price: 5899
+      },
+      { ownerId: 1,
+        address: '558 Fake St.',
+        city: 'Springfield',
+        state: 'OR',
+        country: 'United States',
+        lat: 272.524564,
+        lng: -373.33765,
+        name: 'Mansion for two',
+        description: "You have to clean up after yourself, please be respectful.",
         price: 899
+      },
+      { ownerId: 1,
+        address: '559 Fake St.',
+        city: 'Springfield',
+        state: 'OR',
+        country: 'United States',
+        lat: 283.524564,
+        lng: -380.33765,
+        name: 'Mansion',
+        description: "You have to clean up after yourself, please be respectful.",
+        price: 4899
       }
     ], {});
   },
@@ -87,7 +109,7 @@ module.exports = {
     options.tableName = 'Spots';
     const Op = Sequelize.Op;
     return queryInterface.bulkDelete(options, {
-      address: { [Op.in]: ['555 Fake St.', 'Highway 88, Apt. 12', '666 Iced Ave.', '123 Riverside Road', '557 Fake St.'] }
+      address: { [Op.in]: ['559 Fake St.', '558 Fake St.', '557 Fake St.', '555 Fake St.', 'Highway 88, Apt. 12', '666 Iced Ave.', '123 Riverside Road'] }
     }, {});
   }
 };

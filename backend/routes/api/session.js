@@ -2,8 +2,8 @@ const express = require('express');
 const { Op } = require('sequelize');
 const bcrypt = require('bcryptjs');
 
-const { setTokenCookie, restoreUser } = require('../../utils/auth');
-const { User } = require('../../db/models');
+const { setTokenCookie, restoreUser, requireAuth } = require('../../utils/auth');
+const { User, Spot, Review } = require('../../db/models');
 
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
@@ -100,6 +100,41 @@ router.get(
       });
     }
   );
+
+  //get current user's spots
+router.get('/spots', 
+// requireAuth, 
+async (req, res, next) => {
+  const { user } = req;
+  // let spots = await Spot.findAll({where: {ownerId: user.id}});
+  const myUser = await User.findByPk(user.id);
+  const spots = await myUser.getSpots();
+
+  const spotsCopy = spots.slice()
+  let spotsArray = [];
+
+  while (spotsCopy.length) {
+    let currSpot = spotsCopy.splice(spotsCopy.length -1);
+    let spots2 = await Spot.findByPk(currSpot[0].id);
+
+    const reviewCount = await spots2.countReviews();
+    const image = await spots2.getSpotImages({ attributes: ['url'], where: { preview: true }});
+
+    const avg = await Review.sum('stars', { where: { spotId: spots2.id }});
+    const avgStarRating = avg / reviewCount;
+
+    currSpot.avgStarRating = avgStarRating;
+    currSpot.previewImage = image;
+    spotsArray.push(currSpot)
+}
+
+spotsArray = {Spots: spotsArray}//fix
+
+res.json(spotsArray)
+
+  // res.json(currSpot)
+
+})
 
   // Log out
 router.delete(

@@ -1,4 +1,7 @@
 'use strict';
+const { SpotImage } = require('./spotimage.js');
+
+
 const {
   Model
 } = require('sequelize');
@@ -30,23 +33,27 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'Spot',
-    scopes: {
-      // defaultScope: {
-      //   attributes: []
-      // },
-      forUser(spotId) {
-        const { SpotImage, Review } = require('../models');
-        return {
-          where: {
-            spotId
-          },
-          include: [
-            { model: SpotImage }, 
-            { model: Review }
-          ]
-        }
-      },
-    }
+    // defaultScope: {
+    //     include: [
+    //       { model: SpotImage},
+    //       // { model: Review}
+    //     ]
+    //   },
+    // scopes: {
+      
+    //   forUser(spotId) {
+    //     // const { SpotImage, Review } = require('../models');
+    //     return {
+    //       where: {
+    //         spotId
+    //       },
+    //       include: [
+    //         { model: SpotImage }, 
+    //         { model: Review }
+    //       ]
+    //     }
+    //   },
+    // }
   });
   return Spot;
 };
