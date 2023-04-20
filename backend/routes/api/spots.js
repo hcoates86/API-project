@@ -7,37 +7,12 @@ const { User, Spot, Review } = require('../../db/models');
 const router = express.Router();
 
 
-// const reviewTotal = await Review.count();
-// const reviewStars = await Review.sum('stars');
-// const aveStars = reviewStars / reviewTotal;
-
-router.get('/user', 
-requireAuth, 
-async (req, res, next) => {
-  const { user } = req;
-  const user1 = await User.findByPk(user.id)
-  const spots = await user1.getSpots()
-
-  // const reviewCount = await Spot.count({where: {}})
-  // const avg = await Review.sum('stars', { where: { spotId: id}});
-  let spotsCopy = spots.slice(1)
-
-  // let spots2 = spotsCopy.dataValues;
-  
-  // spots2.numReviews = reviewCount;
-  // spots2.avgStarRating = avgStarRating;
-
-  res.json(spotsCopy)
-    // {spots: spots})
-
-})
-
 //get all spots
 router.get('/', async (req, res, next) => {
   //   const spots = await Spot.scope({
   //   method: ["forUser", id ]
   // }).findAll()
-  const spots = await Spot.findAll()
+  const spots = await Spot.findAll( { raw: true})
 
   res.json(spots)
 })

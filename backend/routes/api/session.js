@@ -103,36 +103,49 @@ router.get(
 
   //get current user's spots
 router.get('/spots', 
-// requireAuth, 
+requireAuth, 
 async (req, res, next) => {
-  const { user } = req;
-  // let spots = await Spot.findAll({where: {ownerId: user.id}});
-  const myUser = await User.findByPk(user.id);
-  const spots = await myUser.getSpots();
+  if (!req.user) {
+    const err = new Error()
+    err.message = "No user is logged in."
+    err.statusCode = 403;
+    next(err)
+  }
 
-  const spotsCopy = spots.slice()
+  const myUser = await User.findByPk(req.user.id);
+  const spots = await myUser.getSpots({ raw: true});
+
+  const spotsCopy = spots;
   let spotsArray = [];
+  
 
   while (spotsCopy.length) {
-    let currSpot = spotsCopy.splice(spotsCopy.length -1);
-    let spots2 = await Spot.findByPk(currSpot[0].id);
+    let currSpot = spotsCopy.splice(spotsCopy.length -1)[0];
 
+    let spots2 = await Spot.findByPk(currSpot.id);
+    
     const reviewCount = await spots2.countReviews();
-    const image = await spots2.getSpotImages({ attributes: ['url'], where: { preview: true }});
+    if (!reviewCount) { 
+      avgStarRating = 'No reviews yet'
+    } else {
+      const avg = await Review.sum('stars', { where: { spotId: spots2.id }});
+      let avgStarRating = avg / reviewCount;
+    }
 
-    const avg = await Review.sum('stars', { where: { spotId: spots2.id }});
-    const avgStarRating = avg / reviewCount;
+    let image = await spots2.getSpotImages({ attributes: ['url'], where: { preview: true }})
+    if (!image || !image.length) image = 'No preview image';
 
-    currSpot.avgStarRating = avgStarRating;
-    currSpot.previewImage = image;
-    spotsArray.push(currSpot)
+    const imageRating = {
+      "avgRating": avgStarRating,
+      "previewImage": image[0].url || image
+    }
+
+    Object.assign(currSpot, imageRating);
+    spotsArray.unshift(currSpot);
 }
 
-spotsArray = {Spots: spotsArray}//fix
+res.json({Spots: spotsArray})
 
-res.json(spotsArray)
-
-  // res.json(currSpot)
 
 })
 
