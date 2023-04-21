@@ -105,12 +105,6 @@ router.get(
 router.get('/spots', 
 requireAuth, 
 async (req, res, next) => {
-  if (!req.user) {
-    const err = new Error()
-    err.message = "No user is logged in."
-    err.statusCode = 403;
-    next(err)
-  }
 
   const myUser = await User.findByPk(req.user.id);
   const spots = await myUser.getSpots({ raw: true});
@@ -118,7 +112,6 @@ async (req, res, next) => {
   const spotsCopy = spots;
   let spotsArray = [];
   
-
   while (spotsCopy.length) {
     let currSpot = spotsCopy.splice(spotsCopy.length -1)[0];
 
