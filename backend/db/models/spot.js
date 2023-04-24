@@ -1,6 +1,4 @@
 'use strict';
-const { SpotImage } = require('./spotimage.js');
-
 
 const {
   Model
