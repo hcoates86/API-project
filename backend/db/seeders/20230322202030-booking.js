@@ -17,7 +17,7 @@ module.exports = {
      *   isBetaMember: false
      * }], {});
     */
-    options.tableName = 'Bookings';
+    options.tableName = 'bookings';
     const date1 = new Date('01/01/2021');
     const date2 = new Date('01/02/2021');
 
@@ -45,7 +45,7 @@ module.exports = {
      * Example:
      * await queryInterface.bulkDelete('People', null, {});
      */
-    options.tableName = 'Bookings';
+    options.tableName = 'bookings';
     const Op = Sequelize.Op;
     return queryInterface.bulkDelete(options, {
       startDate: { [Op.in]: ['01/01/2021'] }

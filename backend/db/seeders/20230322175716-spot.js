@@ -17,7 +17,7 @@ module.exports = {
      *   isBetaMember: false
      * }], {});
     */
-    options.tableName = 'Spots';
+    options.tableName = 'spots';
     return queryInterface.bulkInsert(options, [
       { ownerId: 1,
         address: '555 Fake St.',
@@ -106,7 +106,7 @@ module.exports = {
      * Example:
      * await queryInterface.bulkDelete('People', null, {});
      */
-    options.tableName = 'Spots';
+    options.tableName = 'spots';
     const Op = Sequelize.Op;
     return queryInterface.bulkDelete(options, {
       address: { [Op.in]: ['559 Fake St.', '558 Fake St.', '557 Fake St.', '555 Fake St.', 'Highway 88, Apt. 12', '666 Iced Ave.', '123 Riverside Road'] }

@@ -8,7 +8,7 @@ if (process.env.NODE_ENV === 'production') {
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('ReviewImages', {
+    await queryInterface.createTable('reviewimages', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -18,7 +18,7 @@ module.exports = {
       reviewId: {
         type: Sequelize.INTEGER,
         references: {
-          model: 'Reviews',
+          model: 'reviews',
           key: 'id'
       },
         onDelete: 'cascade'
@@ -40,7 +40,7 @@ module.exports = {
     }, options);
   },
   async down(queryInterface, Sequelize) {
-    options.tableName = "ReviewImages";
+    options.tableName = "reviewimages";
     await queryInterface.dropTable(options);
   }
 };

@@ -16,7 +16,7 @@ module.exports = {
      *   isBetaMember: false
      * }], {});
     */
-    options.tableName = 'SpotImages';
+    options.tableName = 'spotimages';
     return queryInterface.bulkInsert(options, [
       {
         spotId: 1,
@@ -53,7 +53,7 @@ module.exports = {
      * Example:
      * await queryInterface.bulkDelete('People', null, {});
      */
-    options.tableName = 'SpotImages';
+    options.tableName = 'spotimages';
     const Op = Sequelize.Op;
     return queryInterface.bulkDelete(options, {
       url: 'img.png'
