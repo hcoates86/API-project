@@ -17,7 +17,7 @@ module.exports = {
      *   isBetaMember: false
      * }], {});
     */
-    options.tableName = 'Reviews';
+    options.tableName = 'reviews';
     return queryInterface.bulkInsert(options, [
       {
       spotId: 1,
@@ -83,7 +83,7 @@ module.exports = {
      * Example:
      * await queryInterface.bulkDelete('People', null, {});
      */
-    options.tableName = 'Reviews';
+    options.tableName = 'reviews';
     const Op = Sequelize.Op;
     return queryInterface.bulkDelete(options, {
       review: { [Op.in]: ['Average at best.', 'sucks', 'Best evaaaar!!!', 'a decent place to sleep', 'it is a place'] }
