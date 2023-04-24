@@ -156,14 +156,14 @@ res.json(newReview)
 
 })
 
-router.get('/:spotId/bookings', findSpot, async (req, res, next) => {
+router.get('/:spotId/bookings', requireAuth, findSpot, async (req, res, next) => {
   const arr = [];
   const spot = await Spot.findByPk(req.params.spotId);
   const bookings = await spot.getBookings({attributes: ['spotId', 'startDate', 'endDate']});
 
   if (req.user.id !== spot.ownerId){
     res.json({Bookings: bookings})
-  }
+  } else {
 
   const bookings2 = await spot.getBookings({raw: true});
   for (let book of bookings2) {
@@ -172,8 +172,47 @@ router.get('/:spotId/bookings', findSpot, async (req, res, next) => {
     arr.push(book)
   }
   res.json({Bookings: arr})
+}
+})
+
+router.post('/:spotId/bookings', requireAuth, findSpot, async (req, res, next) => {
+  const spot = await Spot.findByPk(req.params.spotId);
+
+  const { startDate, endDate } = req.body;
+
+  const err = new Error();
+  const errors = [];
+  const date1 = new Date(startDate);
+  const date2 = new Date(endDate);
+  if (spot.ownerId === req.user.id) {
+    err.message = "You can't create a booking for a spot you own.";
+    err.status = 400;
+    errors.push("No");
+  }
+  if (date2 <= date1) {
+    err.message = "Validation error";
+    err.status = 400;
+    errors.push("endDate cannot be on or before startDate");
+  } 
+  // if (date1.getTime() === date2.getTime()) {
+
+  // }
+
+  if (errors.length) {
+    err.errors = errors;
+    next(err)
+  }
+
+  const booking = await Booking.create({
+    spotId: req.params.spotId,
+    userId: req.user.id,
+    startDate, endDate
+  })
+
+  res.json(booking)
 
 })
+
 
 router.get('/:spotId', findSpot, async (req, res, next) => {
   const id = req.params.spotId;
@@ -231,5 +270,7 @@ router.delete('/:spotId', requireAuth, findSpot, properAuth, async (req, res, ne
   res.status(200)
   res.json("Successfully deleted")
 })
+
+
 
 module.exports = router;
