@@ -53,28 +53,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.DECIMAL }
   }, {
     sequelize,
-    modelName: 'Spot',
-    // defaultScope: {
-    //     include: [
-    //       { model: SpotImage},
-    //       // { model: Review}
-    //     ]
-    //   },
-    // scopes: {
-      
-    //   forUser(spotId) {
-    //     // const { SpotImage, Review } = require('../models');
-    //     return {
-    //       where: {
-    //         spotId
-    //       },
-    //       include: [
-    //         { model: SpotImage }, 
-    //         { model: Review }
-    //       ]
-    //     }
-    //   },
-    // }
+    modelName: 'Spot'
   });
   return Spot;
 };
