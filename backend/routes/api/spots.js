@@ -2,7 +2,7 @@ const express = require('express');
 const bcrypt = require('bcryptjs');
 
 const { requireAuth } = require('../../utils/auth');
-const { User, Spot, Review, SpotImage } = require('../../db/models');
+const { User, Spot, Review, SpotImage, Booking } = require('../../db/models');
 
 const router = express.Router();
 
@@ -126,7 +126,6 @@ const err = new Error();
 
 err.title = "Body validation error";
 err.message = "Validation Error";
-err.statusCode = 400;
 err.status = 400;
 if (!review) errors.push("Review text is required");
 if (!stars || typeof stars !== 'number' || stars < 1 || stars > 5) errors.push("Stars must be an integer from 1 to 5");
@@ -140,7 +139,6 @@ if (revs && revs.length) {
    if (one.userId === req.user.id) {
       err.title = "Review from the current user already exists for the Spot";
       err.message = "User already has a review for this spot";
-      err.statusCode = 403;
       err.status = 403;
       next(err)
     }
@@ -155,6 +153,25 @@ const newReview = await Review.create({
 
 res.status(201);
 res.json(newReview)
+
+})
+
+router.get('/:spotId/bookings', findSpot, async (req, res, next) => {
+  const arr = [];
+  const spot = await Spot.findByPk(req.params.spotId);
+  const bookings = await spot.getBookings({attributes: ['spotId', 'startDate', 'endDate']});
+
+  if (req.user.id !== spot.ownerId){
+    res.json({Bookings: bookings})
+  }
+
+  const bookings2 = await spot.getBookings({raw: true});
+  for (let book of bookings2) {
+    const user = await User.findByPk(book.userId, {raw: true, attributes: ['id', 'firstName', 'lastName']});
+    book.User = user;
+    arr.push(book)
+  }
+  res.json({Bookings: arr})
 
 })
 
@@ -211,11 +228,8 @@ router.put('/:spotId', requireAuth, findSpot, properAuth, bodyVal, async (req, r
 router.delete('/:spotId', requireAuth, findSpot, properAuth, async (req, res, next) => {
   const spot = await Spot.findByPk(req.params.spotId);
   await spot.destroy()
-  const response = {
-    message: "Successfully deleted",
-    statusCode : 200
-  }
-  res.json(response)
+  res.status(200)
+  res.json("Successfully deleted")
 })
 
 module.exports = router;

@@ -79,10 +79,9 @@ router.get(
         // err.status = 401;
         // err.title = 'Login failed';
         // err.errors = { credential: 'The provided credentials were invalid.' };
-        const err = new Error();
-        err.message = 'Invalid credentials';
+        const err = new Error('Invalid credentials');
         err.status = 401;
-        return next(err);
+        next(err);
       } 
   
       const safeUser = {
@@ -164,6 +163,28 @@ router.get('/reviews', requireAuth, async (req, res, next) => {
   res.json({Reviews: arr})
 
 })
+
+//bookings by current user
+router.get('/bookings', requireAuth, async (req, res, next) => {
+  const arr = [];
+  const user = await User.findByPk(req.user.id);
+  const bookings = await user.getBookings({raw:true});
+
+  for (let book of bookings) {
+    const spot = await Spot.findByPk(book.spotId);
+    let image = await spot.getSpotImages({ attributes: ['url'], where: { preview: true }})
+    if (!image || !image.length) image = 'No preview image';
+    const spotInfo = await Spot.findByPk(spot.id, {raw:true, attributes: {exclude: ['description', 'createdAt', 'updatedAt']}})
+    spotInfo.previewImage = image[0].url || image;
+
+    book.Spot = spotInfo;
+
+    arr.push(book)
+  }
+
+  res.json({Bookings: arr})
+})
+
 
   // Log out
 router.delete(
