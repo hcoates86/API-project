@@ -1,7 +1,5 @@
 'use strict';
 
-const bcrypt = require("bcryptjs");
-
 let options = {};
 if (process.env.NODE_ENV === 'production') {
   options.schema = process.env.SCHEMA;  // define your schema in options object
@@ -19,30 +17,25 @@ module.exports = {
      *   isBetaMember: false
      * }], {});
     */
-    options.tableName = 'Users';
+    options.tableName = 'Bookings';
+    const date1 = new Date('01/01/2021');
+    const date2 = new Date('01/02/2021');
+
     return queryInterface.bulkInsert(options, [
       {
-        firstName: 'Emo',
-        lastName: 'Luser',
-        email: 'demo@user.io',
-        username: 'Demo-lition',
-        hashedPassword: bcrypt.hashSync('password')
+        spotId: 1,
+        userId: 1,
+        startDate: date1,
+        endDate: date2
       },
       {
-        firstName: 'Falsey',
-        lastName: 'Mann',
-        email: 'user1@user.io',
-        username: 'FakeUser1',
-        hashedPassword: bcrypt.hashSync('password2')
-      },
-      {
-        firstName: 'Jesus',
-        lastName: 'Christianson',
-        email: 'user2@user.io',
-        username: 'FakeUser2',
-        hashedPassword: bcrypt.hashSync('password3')
+        spotId: 3,
+        userId: 1,
+        startDate: Date('01/05/2021'),
+        endDate: Date('01/09/2021')
       }
     ], {});
+
   },
 
   async down (queryInterface, Sequelize) {
@@ -52,10 +45,10 @@ module.exports = {
      * Example:
      * await queryInterface.bulkDelete('People', null, {});
      */
-    options.tableName = 'Users';
+    options.tableName = 'Bookings';
     const Op = Sequelize.Op;
     return queryInterface.bulkDelete(options, {
-      username: { [Op.in]: ['Demo-lition', 'FakeUser1', 'FakeUser2'] }
+      startDate: { [Op.in]: ['01/01/2021'] }
     }, {});
   }
 };
