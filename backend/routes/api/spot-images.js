@@ -9,17 +9,18 @@ const router = express.Router();
 
 
 
-router.delete('/:imageId', requireAuth, findSpot, properAuth, async (req, res, next) => {
+router.delete('/:imageId', requireAuth, async (req, res, next) => {
 
     const image = await SpotImage.findByPk(req.params.imageId)
-    const spot = await image.getSpot();
+
     if (!image) {
         const err = new Error("Spot Image couldn't be found")
         err.status = 404;
-        err.title = "Spot Image couldn't be found";
+        err.title = "Couldn't find a Spot Image with the specified id";
         err.errors = { message:  "Spot Image couldn't be found"};
         next(err)
     }
+        const spot = await image.getSpot();
     if (req.user.id !== spot.ownerId) {
         const err = new Error("Spot must belong to the current user")
         err.status = 401;
