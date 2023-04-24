@@ -18,21 +18,19 @@ module.exports = {
      * }], {});
     */
     options.tableName = 'bookings';
-    const date1 = new Date('01/01/2021');
-    const date2 = new Date('01/02/2021');
 
     return queryInterface.bulkInsert(options, [
       {
         spotId: 1,
         userId: 1,
-        startDate: date1,
-        endDate: date2
+        startDate: '01/05/2021',
+        endDate: '01/05/2021'
       },
       {
         spotId: 3,
         userId: 1,
-        startDate: Date('01/05/2021'),
-        endDate: Date('01/09/2021')
+        startDate: '01/06/2021',
+        endDate: '01/19/2021'
       }
     ], {});
 
