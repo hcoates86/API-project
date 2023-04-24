@@ -179,7 +179,7 @@ router.post('/:spotId/bookings', requireAuth, findSpot, async (req, res, next) =
   const spot = await Spot.findByPk(req.params.spotId);
 
   const { startDate, endDate } = req.body;
-
+  // toDateString()
   const err = new Error();
   const errors = [];
   const date1 = new Date(startDate);

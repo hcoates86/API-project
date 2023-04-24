@@ -22,12 +22,7 @@ module.exports = (sequelize, DataTypes) => {
     stars: DataTypes.INTEGER
   }, {
     sequelize,
-    modelName: 'Review',
-    // defaultScope: {
-    //   attributes: {
-    //     exclude: ["createdAt", "updatedAt"]
-    //   }
-    // }
+    modelName: 'Review'
   });
   return Review;
 };

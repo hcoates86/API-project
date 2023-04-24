@@ -144,16 +144,20 @@ router.get('/reviews', requireAuth, async (req, res, next) => {
 
   for (let review of reviews) {
     const spot = await Spot.findByPk(review.spotId);
-    let image = await spot.getSpotImages({ attributes: ['url'], where: { preview: true }});
-    if (!image || !image.length) image = 'No preview image';
+    let image;
+    if (spot){
+     image = await spot.getSpotImages({ attributes: ['url'], where: { preview: true }});
+     }
+    
     const currReview = await Review.findByPk(review.id);
     let rImages = await currReview.getReviewImages({attributes: ['id', 'url']});
-    if (!rImages || !rImages.length) rImages = 'No review images';
+    if (!rImages || !rImages.length) rImages = 'No image';
     const spotInfo = await Spot.findByPk(review.spotId, {attributes: {exclude: ['name', 'description', 'createdAt', 'updatedAt']} , raw: true});
 
     review.User = await User.findByPk(review.userId, {attributes: ['id', 'firstName', 'lastName']});
-    
-    spotInfo.previewImage = image[0].url || image;
+    if (image && image.length) {
+    spotInfo.previewImage = image[0].url
+  }
     review.Spot = spotInfo;
     review.ReviewImages = rImages;
 
@@ -172,7 +176,10 @@ router.get('/bookings', requireAuth, async (req, res, next) => {
 
   for (let book of bookings) {
     const spot = await Spot.findByPk(book.spotId);
-    let image = await spot.getSpotImages({ attributes: ['url'], where: { preview: true }})
+    let image;
+    if (spot){
+     image = await spot.getSpotImages({ attributes: ['url'], where: { preview: true }})
+     }
     if (!image || !image.length) image = 'No preview image';
     const spotInfo = await Spot.findByPk(spot.id, {raw:true, attributes: {exclude: ['description', 'createdAt', 'updatedAt']}})
     spotInfo.previewImage = image[0].url || image;
