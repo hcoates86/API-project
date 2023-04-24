@@ -2,7 +2,7 @@ const express = require('express');
 const { Op } = require('sequelize');
 const bcrypt = require('bcryptjs');
 
-const { setTokenCookie, restoreUser, requireAuth } = require('../../utils/auth');
+const { setTokenCookie, requireAuth } = require('../../utils/auth');
 const { User, Spot, Review } = require('../../db/models');
 
 const { check } = require('express-validator');
@@ -45,7 +45,7 @@ router.get(
     const errors = [];
     const err = new Error();
     err.message = "Validation error";
-    err.statusCode = 400;
+    err.status = 400;
 
     if (!password) {
       errors.push("Password is required")
@@ -81,7 +81,7 @@ router.get(
         // err.errors = { credential: 'The provided credentials were invalid.' };
         const err = new Error();
         err.message = 'Invalid credentials';
-        err.statusCode = 401;
+        err.status = 401;
         return next(err);
       } 
   
@@ -102,9 +102,7 @@ router.get(
   );
 
   //get current user's spots
-router.get('/spots', 
-requireAuth, 
-async (req, res, next) => {
+router.get('/spots', requireAuth, async (req, res, next) => {
 
   const myUser = await User.findByPk(req.user.id);
   const spots = await myUser.getSpots({ raw: true});
@@ -138,7 +136,32 @@ async (req, res, next) => {
 }
 
 res.json({Spots: spotsArray})
+})
 
+router.get('/reviews', requireAuth, async (req, res, next) => {
+  const myUser = await User.findByPk(req.user.id);
+  const reviews = await myUser.getReviews({raw: true})
+  let arr = [];
+
+  for (let review of reviews) {
+    const spot = await Spot.findByPk(review.spotId);
+    let image = await spot.getSpotImages({ attributes: ['url'], where: { preview: true }});
+    if (!image || !image.length) image = 'No preview image';
+    const currReview = await Review.findByPk(review.id);
+    let rImages = await currReview.getReviewImages({attributes: ['id', 'url']});
+    if (!rImages || !rImages.length) rImages = 'No review images';
+    const spotInfo = await Spot.findByPk(review.spotId, {attributes: {exclude: ['name', 'description', 'createdAt', 'updatedAt']} , raw: true});
+
+    review.User = await User.findByPk(review.userId, {attributes: ['id', 'firstName', 'lastName']});
+    
+    spotInfo.previewImage = image[0].url || image;
+    review.Spot = spotInfo;
+    review.ReviewImages = rImages;
+
+    arr.push(review)
+  }
+
+  res.json({Reviews: arr})
 
 })
 
@@ -151,10 +174,6 @@ router.delete(
     }
   );
 
-  // router.use((err, req, res, next) => { //double check these errors
-    
-  //   res.json(err)
-  // })
 
 
 module.exports = router;

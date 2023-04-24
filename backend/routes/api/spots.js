@@ -1,7 +1,7 @@
 const express = require('express');
 const bcrypt = require('bcryptjs');
 
-const { setTokenCookie, requireAuth } = require('../../utils/auth');
+const { requireAuth } = require('../../utils/auth');
 const { User, Spot, Review, SpotImage } = require('../../db/models');
 
 const router = express.Router();
@@ -12,7 +12,8 @@ const bodyVal = async (req, res, next) => {
   const err = new Error();
   err.title = "Body validation error";
   err.message = "Validation Error";
-  err.statusCode = 400;
+  // err.statusCode = 
+  err.status = 400;
   if (!name) errors.push("Name is required");
   else if (name.length > 50) errors.push("Name must be less than 50 characters");
   if (!address) errors.push("Street address is required");
@@ -34,7 +35,7 @@ const properAuth = async (req, res, next) => {
   const err = new Error()
   const spot = await Spot.findByPk(req.params.spotId);
   if (req.user.id !== spot.ownerId) {
-    err.statusCode = 401;
+    err.status = 401;
     err.title = "Authentication required";
     err.message = "Spot must belong to the current user";
     next(err)
@@ -46,9 +47,10 @@ const findSpot = async (req, res, next) => {
   const err = new Error()
   const spot = await Spot.findByPk(req.params.spotId);
  if (!spot) {
-    err.statusCode = 404;
+    err.status = 404;
     err.title = "Couldn't find a Spot with the specified id";
     err.message = "Spot couldn't be found";
+    // err.statusCode = 404;
     next(err)
   }
   next()
@@ -94,6 +96,67 @@ router.post('/:spotId/images', requireAuth, findSpot, properAuth, async (req, re
 
 })
 
+router.get('/:spotId/reviews', findSpot, async (req, res, next) => {
+  const spot = await Spot.findByPk(req.params.spotId);
+  const reviews = await spot.getReviews({raw: true});
+  let arr = [];
+  if (!reviews || !reviews.length) arr = 'There are no reviews for this spot.' 
+  for (let review of reviews) {
+    const currReview = await Review.findByPk(review.id);
+    let rImages = await currReview.getReviewImages({attributes: ['id', 'url']});
+    if (!rImages || !rImages.length) rImages = 'No review images';
+
+    review.User = await User.findByPk(review.userId, {attributes: ['id', 'firstName', 'lastName']});
+    review.ReviewImages = rImages;
+
+    arr.push(review)
+  }
+
+  res.json({Reviews: arr})
+})
+
+
+router.post('/:spotId/reviews', requireAuth, findSpot, async (req, res, next) => {
+const { review, stars } = req.body;
+const spot = await Spot.findByPk(req.params.spotId);
+const revs = await spot.getReviews();
+
+const errors = [];
+const err = new Error();
+
+err.title = "Body validation error";
+err.message = "Validation Error";
+err.statusCode = 400;
+err.status = 400;
+if (!review) errors.push("Review text is required");
+if (!stars || typeof stars !== 'number' || stars < 1 || stars > 5) errors.push("Stars must be an integer from 1 to 5");
+if (errors.length) {
+  err.errors = errors;
+  next(err)
+}
+
+if (revs && revs.length) {
+  for (let one of revs) {
+   if (one.userId === req.user.id) {
+      err.title = "Review from the current user already exists for the Spot";
+      err.message = "User already has a review for this spot";
+      err.statusCode = 403;
+      err.status = 403;
+      next(err)
+    }
+  }
+}
+
+const newReview = await Review.create({
+  spotId: req.params.spotId,
+  userId: req.user.id,
+  review, stars
+})
+
+res.status(201);
+res.json(newReview)
+
+})
 
 router.get('/:spotId', findSpot, async (req, res, next) => {
   const id = req.params.spotId;
@@ -120,7 +183,7 @@ router.get('/:spotId', findSpot, async (req, res, next) => {
 
 
 
-
+//create a new spot
 router.post('/new', requireAuth, bodyVal, async (req, res, next) => {
   const { address, city, state, country, lat, lng, name, description, price } = req.body;
 
@@ -128,9 +191,9 @@ router.post('/new', requireAuth, bodyVal, async (req, res, next) => {
     ownerId: req.user.id, //makes current user the owner id
     address, city, state, country, lat, lng, name, description, price })
 
-  res.statusCode = 201;
+  res.status(201);
   res.json(spot)
-//should it allow multiple posts for the same spot?
+//should it not allow multiple posts for the same spot?
 })
 
 

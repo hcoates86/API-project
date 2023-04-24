@@ -37,7 +37,7 @@ const checkExists = async (req, res, next) => {
   const email2 = await User.findOne({where:{email: email}})
     err.title = "User already exists";
     err.message = "User already exists";
-    err.statusCode = 403;
+    err.status = 403;
   if (email2) {
     errors.push("User with that email already exists")
   } 
@@ -57,7 +57,7 @@ const infoRequired = async (req, res, next) => {
 
   err.title = "Validation error";
   err.message = "Validation error";
-  err.statusCode = 400;
+  err.status = 400;
 
   if (!firstName) errors.push("First Name is required");
   if (!lastName) errors.push("Last Name is required");

@@ -49,6 +49,30 @@ module.exports = {
       review: 'it is a place',
       stars: 4
       },
+      {
+        spotId: 5,
+        userId: 1,
+        review: 'it is a place',
+        stars: 4
+      },
+      {
+        spotId: 4,
+        userId: 1,
+        review: 'it is a place',
+        stars: 4
+      },
+      {
+        spotId: 3,
+        userId: 1,
+        review: 'it is a place',
+        stars: 4
+      },
+      {
+        spotId: 2,
+        userId: 1,
+        review: 'it is a place',
+        stars: 4
+      },
     ], {});
   },
 
