@@ -2,14 +2,14 @@ const express = require('express');
 const bcrypt = require('bcryptjs');
 
 const { requireAuth } = require('../../utils/auth');
-const { User, Spot, Review, SpotImage, Booking } = require('../../db/models');
+const { User, Spot, Review, SpotImage, ReviewImage } = require('../../db/models');
 
 const router = express.Router();
 
 
 
 
-router.delete('/:rImageId', requireAuth, findSpot, properAuth, async (req, res, next) => {
+router.delete('/:rImageId', requireAuth, async (req, res, next) => {
     const image = await ReviewImage.findByPk(req.params.rImageId)
     const review = await image.getReview();
     if (!image) {
