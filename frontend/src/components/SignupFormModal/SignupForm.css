@@ -13,3 +13,7 @@ label, button, h1 {
     justify-content: space-evenly;
     font-family: 'Helvetica Neue', 'Helvetica', sans-serif;
 }
+
+.errors {
+    color: red
+}

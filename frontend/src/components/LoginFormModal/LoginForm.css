@@ -13,3 +13,14 @@ label, button, h1 {
     justify-content: space-evenly;
     font-family: 'Helvetica Neue', 'Helvetica', sans-serif;
 }
+
+label {
+    border: 1px solid black;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.active {
+    border: 2px solid black;
+
+}
