@@ -32,21 +32,6 @@ export const login = (user) => async (dispatch) => {
   return response;
 };
 
-  
-
-  // export const deleteUser = () => async (dispatch) => {
-  //   const res = await fetch('/api/session', {
-  //     method: 'DELETE',
-  //     headers: {"Content-Type": "application/json"}
-  //   })
-
-  //   if (res.ok) {
-  //     dispatch(removeUser())
-  //   }else {
-  //     const errors = await res.json();
-  //     return errors;
-  // }}
-
   export const restoreUser = () => async (dispatch) => {
     const response = await csrfFetch("/api/session");
     const data = await response.json();

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { NavLink, useState, useEffect, useRef } from "react";
 import { useDispatch } from 'react-redux';
 import * as sessionActions from '../../store/session';
 import OpenModalMenuItem from './OpenModalMenuItem';
@@ -37,6 +37,11 @@ function ProfileButton({ user }) {
     closeMenu();
   };
 
+  const loginDemo = () => {
+    return dispatch(sessionActions.login({ credential: 'Demo-lition', password: 'password' }))
+
+  }
+
   const ulClassName = "profile-dropdown" + (showMenu ? "" : " hidden");
 
   return (
@@ -66,6 +71,7 @@ function ProfileButton({ user }) {
               onItemClick={closeMenu}
               modalComponent={<SignupFormModal />}
             />
+            <button onClick={loginDemo}>Demo-User</button>
           </>
         )}
       </ul>
