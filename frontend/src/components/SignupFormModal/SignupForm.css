@@ -1,0 +1,15 @@
+.box {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    border-top: solid black 2px;
+}
+
+label, button, h1 {
+    margin: 10px;
+    display: flex;
+    flex-flow: column wrap;
+    align-items: center;
+    justify-content: space-evenly;
+    font-family: 'Helvetica Neue', 'Helvetica', sans-serif;
+}

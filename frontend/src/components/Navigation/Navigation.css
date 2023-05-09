@@ -1,0 +1,16 @@
+li {
+    /* line-height: 200%; */
+    height: 30px;
+    width: 100px;
+    /* margin: .7em; */
+
+    display: inline-block;
+    border: 2px solid black;
+    padding: 5px;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+.active {
+    text-decoration: none;
+}
