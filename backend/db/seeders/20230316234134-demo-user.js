@@ -59,7 +59,7 @@ module.exports = {
       {//6
         firstName: 'King',
         lastName: 'Smith',
-        email: 'userb@user.io',
+        email: 'king@user.io',
         username: 'woof',
         hashedPassword: bcrypt.hashSync('password')
       },
