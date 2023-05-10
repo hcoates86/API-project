@@ -22,9 +22,10 @@ function SignupFormModal() {
     if (username.includes('@')) errorObj["username"] = "Username cannot be an email";
     if (email < 3 || email > 256) errorObj["email"] = "Email must be between 3 and 256 characters";
     if (!email.includes('@') || !email.includes('.')) errorObj["email"] = "Invalid email";
-    if (firstName.length < 1 || lastName.length < 1) errorObj['general'] = "All fields must be filled out"
-    if (password !== confirmPassword) errorObj['password'] = 'passwords must match'
-    if (password.length < 3) errorObj['password'] = "password must be at least 3 characters long"
+    if (firstName.length < 1) errorObj['firstName'] = "All fields must be filled out";
+    if (lastName.length < 1) errorObj['lastName'] = "All fields must be filled out";
+    if (password !== confirmPassword) errorObj['password'] = 'passwords must match';
+    if (password.length < 6) errorObj['password'] = "password must be at least 6 characters long"
     setErrors(errorObj)
     }, [username, email, firstName, lastName, password, confirmPassword])
 
@@ -89,7 +90,7 @@ function SignupFormModal() {
             required
           />
         </label>
-        {errors.firstName && <p className='errors'>{errors.general}</p>}
+        {errors.firstName && <p className='errors'>{errors.firstName}</p>}
         <label>
           Last Name
           <input
@@ -99,7 +100,7 @@ function SignupFormModal() {
             required
           />
         </label>
-        {errors.lastName && <p className='errors'>{errors.general}</p>}
+        {errors.lastName && <p className='errors'>{errors.lastName}</p>}
         <label>
           Password
           <input
@@ -120,7 +121,7 @@ function SignupFormModal() {
           />
         </label>
         {errors.confirmPassword && (
-          <p>{errors.confirmPassword}</p>
+          <p className='errors'>{errors.confirmPassword}</p>
         )}
         <button type="submit">Sign Up</button>
       </form>

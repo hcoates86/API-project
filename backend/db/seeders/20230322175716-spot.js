@@ -83,7 +83,7 @@ module.exports = {
         lng: -373.33765,
         name: 'Master Bedroom',
         description: 'Features a Queen bed and 75" TV, just please no eating crackers in bed.',
-        price: 899
+        price: 9999
       },
       { ownerId: 1,
         address: '555.5 Fake St.',
@@ -115,10 +115,10 @@ module.exports = {
         lat: 280.524564,
         lng: -370.33765,
         name: 'Backyard',
-        description: "Privacy hedges and a great view of the sky.",
+        description: "Privacy fence and a great view of the sky.",
         price: 4899
       },
-      { ownerId: 1,
+      { ownerId: 1, //10
         address: '555 Fake St.',
         city: 'Springfield',
         state: 'OR',
@@ -142,7 +142,7 @@ module.exports = {
     options.tableName = 'spots';
     const Op = Sequelize.Op;
     return queryInterface.bulkDelete(options, {
-      address: { [Op.in]: ['559 Fake St.', '558 Fake St.', '557 Fake St.', '555 Fake St.', 'Highway 88, Apt. 12', '666 Iced Ave.', '123 Riverside Road'] }
+      address: { [Op.in]: ['559 Fake St.', '555 Fake St.', '123 Riverside Road'] }
     }, {});
   }
 };
