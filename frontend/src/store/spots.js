@@ -10,10 +10,14 @@ const getAllSpots = (spots) => {
 }
 
 export const getSpots = () => async (dispatch) => {
-    const spots = await fetch('/api/spots');
-    dispatch(getAllSpots(spots))
-    console.log(spots);
-    return spots;
+    const res = await fetch('/api/spots');
+    if (res.ok) {
+        const spots = await res.json()
+        dispatch(getAllSpots(spots))
+        console.log(spots);
+        // return spots;
+    }
+
 };
 
 
@@ -28,15 +32,15 @@ export const getSpots = () => async (dispatch) => {
 
 
 
+const initialState = {allSpots:{}}
 
 
-
-const spotReducer = (state = {}, action) => {
+const spotReducer = (state = initialState, action) => {
     switch (action.type) {
         case GET_SPOTS:
-            const spotsState = {};
-            action.spots.allSpots.forEach(spot => {
-                spotsState[spot.id] = spot
+            const spotsState = {allSpots:{}};
+            action.spots.Spots.forEach(spot => {
+                spotsState.allSpots[spot.id] = spot
             })
             return spotsState
      default:

@@ -10,7 +10,7 @@ function Navigation({ isLoaded }){
   return (
     <ul>
       <li>
-        <NavLink exact to="/">🕭 bellbnb</NavLink>
+        <NavLink exact to="/">mybnb</NavLink>
       </li>
       {isLoaded && (
         <li>
