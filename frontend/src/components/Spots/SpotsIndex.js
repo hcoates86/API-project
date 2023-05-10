@@ -13,7 +13,11 @@ const SpotsIndex = () => {
 
     useEffect(() => {
         dispatch(getSpots())
-    })
+      }, [dispatch]);
+
+    // useEffect(() => {
+
+    // })
     return (
         <div id='indexBox'>
             {spots.map((spot) => (
