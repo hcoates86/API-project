@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-
+import './Spots.css';
 
 const SpotsIndexItem = ({ spot }) => {
     let image = spot.previewImage || null;

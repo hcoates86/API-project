@@ -1,5 +1,43 @@
 #indexBox {
+    height: 150px;
+    width: 150px;
     display: flex;
     flex-flow: row wrap;
     justify-content: space-between;
 }
+
+  h1, h2, h3 {
+    margin-left: 10px;
+  }
+  
+  #outer-box {
+    height: 700px;
+    width: 1000px;
+    margin: 4em;
+  }
+  .previewBox {
+    width: 500px;
+    box-sizing: content-box;
+  }
+  #outerImgBox {
+    flex-flow: row wrap;
+  }
+  
+  .innerImgBox {
+    flex: 1;
+  
+  }
+  
+  #reserve {
+    width: 400px;
+    position: sticky;
+    top: 50px;
+  }
+  
+  #reserveButton {
+    padding: 12px;
+    width: 350px;
+    color: white;
+    background-color: salmon;
+    box-shadow: 4px 4px 0px black;
+  }
