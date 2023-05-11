@@ -12,22 +12,26 @@ h1 {
     font-size: 1.5em;
   }
   
-  h2 {
-    font-size: 1em;
-    text-decoration: underline;
-    color:rgba(0, 0, 153, 0.698)
-  }  
+#demo {
+  font-size: 1em;
+  text-decoration: underline;
+  color:rgba(0, 0, 153, 0.698);
+  cursor: pointer;
+}  
 
-label {
-    display: inline-grid;
-    border: 1px solid black;
-    padding: 12px;
-    border-radius: 8px;
+.input {
+  display: inline-grid;
+  border: 1px solid black;
+  padding: 12px;
+  border-radius: 5px;
   color: gray;
-  font-size: 10px;
+  font-size: 12px;
+  width: 326px;
+  margin-bottom: .5em;
 }
 
-.active {
-    border: 2px solid black;
-
+#login {
+  padding: 12px;
+  width: 350px;
+  box-shadow: 4px 4px 0px black;
 }

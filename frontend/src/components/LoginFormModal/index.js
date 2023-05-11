@@ -47,9 +47,9 @@ function LoginFormModal() {
       <h1>Log In</h1>
       <p className="errors">{errors.login}</p>
       <form onSubmit={handleSubmit}>
-        <label>
-          Username or Email
+        <label >
           <input
+            className="input"
             type="text"
             placeholder="Username or Email"
             value={credential}
@@ -57,9 +57,9 @@ function LoginFormModal() {
             required
           />
         </label>
-        <label>
-          Password
+        <label >         
           <input
+            className="input"
             type="password"
             placeholder="Password"
             value={password}
@@ -71,10 +71,11 @@ function LoginFormModal() {
           <p>{errors.credential}</p>
         )}
         <button type="submit"
+                id="login"
                 disabled={disabled}
         >Log In</button>
       </form>
-      <h2 onClick={loginDemo}>Demo User</h2>
+      <h2 id='demo' onClick={loginDemo}>Log in as Demo User</h2>
     </div>
   );
 }

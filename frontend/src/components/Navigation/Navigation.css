@@ -11,9 +11,14 @@ li {
     text-align: center;
 }
 
-
-
 .active {
     text-decoration: none;
-    background-color: antiquewhite;
+}
+
+#navbar {
+    position: sticky;
+}
+
+#logobnb {
+    
 }

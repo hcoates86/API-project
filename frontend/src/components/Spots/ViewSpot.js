@@ -20,7 +20,17 @@ const ViewSpot = () => {
     const alertP = () => alert('Feature Coming Soon...');
 
     if (!spot) return;
-    // const spotImages = spot.SpotImages;
+    const spotImages = spot.SpotImages;
+    
+    let avgStarS;
+    let numReviewsS = "Reviews";
+
+    if (!spot.avgStarRating) {
+        avgStarS = "★New"
+    } else avgStarS = `★${spot.avgStarRating.toFixed(1)}`
+
+    if (spot.numReviews == 1) numReviewsS = "Review";
+    
 
 
       return (
@@ -31,18 +41,18 @@ const ViewSpot = () => {
             <span>${spot.price}
             <label>night</label> 
             </span>
-            <span>{spot.avgStarRating}</span>
-            <span>{spot.numReviews}</span>
+            <span>{avgStarS}</span>
+            <span>{spot.numReviews} {numReviewsS}</span>
             <button onClick={alertP} id='reserveButton'>Reserve</button>
           </div>
           <div id='outerImgBox'>
-            {/* <div className='previewBox'>
+            <div className='previewBox'>
                     {spotImages.map((image) => (
                         image.preview === true 
                         ? <img src={image.url}></img>
                         : <div className='innerImgBox'><img src={image.url}></img> </div>
                     ))}
-            </div> */}
+            </div>
           </div>
             <div>
             <h2>Hosted by {spot.Owner.firstName} {spot.Owner.lastName}</h2>
