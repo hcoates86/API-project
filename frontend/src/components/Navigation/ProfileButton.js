@@ -4,7 +4,6 @@ import * as sessionActions from '../../store/session';
 import OpenModalMenuItem from './OpenModalMenuItem';
 import LoginFormModal from '../LoginFormModal';
 import SignupFormModal from '../SignupFormModal';
-import userImg from '../../images/account-100.png';
 
 function ProfileButton({ user }) {
   const dispatch = useDispatch();
@@ -38,18 +37,16 @@ function ProfileButton({ user }) {
     closeMenu();
   };
 
-  // const loginDemo = () => {
-  //   return dispatch(sessionActions.login({ credential: 'Demo-lition', password: 'password' }))
-
-  // }
 
   const ulClassName = "profile-dropdown" + (showMenu ? "" : " hidden");
 
   return (
     <>
       <button onClick={openMenu}>
-        {/* <i className="fas fa-user-circle" /> */}
-        <img src={userImg}></img>
+      <i className="fa-regular fa-bars fa-2x"></i>
+      </button>
+      <button onClick={openMenu}>
+        <i className="fas fa-user-circle fa-2x" />
       </button>
       <ul className={ulClassName} ref={ulRef}>
         {user ? (
@@ -73,7 +70,6 @@ function ProfileButton({ user }) {
               onItemClick={closeMenu}
               modalComponent={<SignupFormModal />}
             />
-            {/* <button onClick={loginDemo}>Demo-User</button> */}
           </>
         )}
       </ul>

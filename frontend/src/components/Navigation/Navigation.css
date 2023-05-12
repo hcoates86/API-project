@@ -1,9 +1,6 @@
 li {
-    /* line-height: 200%; */
     height: 30px;
     width: 100px;
-    /* margin: .7em; */
-
     display: inline-block;
 
     text-decoration: none;
@@ -11,14 +8,17 @@ li {
     text-align: center;
 }
 
-.active {
-    text-decoration: none;
-}
-
 #navbar {
     position: sticky;
 }
 
+.active {
+    text-decoration: none;
+    color: black;
+}
+
 #logobnb {
-    
+    text-decoration: none;
+    font-family: 'Gloria Hallelujah', cursive;
+    font-size: 2em;
 }

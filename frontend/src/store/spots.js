@@ -3,6 +3,8 @@ import {csrfFetch} from './csrf';
 const GET_SPOTS = 'spots/getAllSpots';
 const VIEW_SPOT = 'spots/getSingleSpot';
 const MAKE_SPOT = 'spots/makeSpot';
+const UPDATE_SPOT ='spots/updateSpot';
+const DELETE_SPOT ='spots/deleteSpot';
 
 const getAllSpots = (spots) => {
     return {
@@ -25,6 +27,20 @@ const makeSpot = (spot) => {
     }
 }
 
+const updateSpot = (spotId) => {
+    return {
+        type: UPDATE_SPOT,
+        spotId
+    }
+}
+
+const deleteSpot = (spotId) => {
+    return {
+        type: DELETE_SPOT,
+        spotId
+    }
+}
+
 export const getSpots = () => async (dispatch) => {
     const res = await csrfFetch('/api/spots');
     if (res.ok) {
@@ -38,7 +54,6 @@ export const fetchSpot = (spotId) => async (dispatch) => {
     const res = await csrfFetch(`/api/spots/${spotId}`);
     if (res.ok) {
         const spot = await res.json()
-        console.log('spot', spot);
         dispatch(getSingleSpot(spot))
     } else {
         const errors = await res.json();
@@ -51,12 +66,27 @@ export const createSpot = (spot) => async (dispatch) => {
         method: 'POST',
         body: JSON.stringify(spot)
     });
-
+    if (res.ok) {
+        const newSpot = await res.json();
+        dispatch(makeSpot(newSpot))
+        return newSpot;
+    }
+    
 }
 
 
+export const updatedSpot = (spotId) => async (dispatch) => {
+    // const res = await csrfFetch('/api/spots/new', {
+    //     method: 'PUT',
+    //     body: JSON.stringify(spot)
+    // }); **fix
 
+}
 
+export const removeSpot = (spotId) => async (dispatch) => {
+    const res = await csrfFetch(`/api/spots/${spotId}`);
+    
+}
 
 
 

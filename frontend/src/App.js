@@ -20,7 +20,7 @@ function App() {
       {isLoaded && <Switch>
           <Route exact path="/" component={SpotsIndex} />
           <Route exact path="/spots/:spotId" component={ViewSpot} />
-
+          <Route path="/spots/new" component={SpotForm} />
         </Switch>}
 
       
