@@ -10,6 +10,7 @@ li {
 
 #navbar {
     position: sticky;
+    border-bottom: solid gray;
 }
 
 .active {

@@ -5,6 +5,7 @@ const VIEW_SPOT = 'spots/getSingleSpot';
 const MAKE_SPOT = 'spots/makeSpot';
 const UPDATE_SPOT ='spots/updateSpot';
 const DELETE_SPOT ='spots/deleteSpot';
+const ADD_IMAGE = 'spots/addImage';
 
 const getAllSpots = (spots) => {
     return {
@@ -41,6 +42,13 @@ const deleteSpot = (spotId) => {
     }
 }
 
+const addImage = (image) => {
+    return {
+        type: ADD_IMAGE,
+        image
+    }
+}
+
 export const getSpots = () => async (dispatch) => {
     const res = await csrfFetch('/api/spots');
     if (res.ok) {
@@ -66,6 +74,7 @@ export const createSpot = (spot) => async (dispatch) => {
         method: 'POST',
         body: JSON.stringify(spot)
     });
+
     if (res.ok) {
         const newSpot = await res.json();
         dispatch(makeSpot(newSpot))
@@ -75,6 +84,20 @@ export const createSpot = (spot) => async (dispatch) => {
         return errors;
     }
     
+}
+
+export const postImage = (image) => async (dispatch) => {
+    const res = await csrfFetch(`/api/${image.spotId}/images`, {
+        method: 'POST',
+        body: JSON.stringify(image)
+    });
+
+
+    if (res.ok) {
+        const newImage = await res.json();
+        dispatch(addImage(newImage));
+        return newImage;
+    }
 }
 
 
@@ -109,7 +132,7 @@ export const removeSpot = (spotId) => async (dispatch) => {
 
 
 
-const initialState = {allSpots:{}, singleSpot: {}}
+const initialState = {allSpots:{}, singleSpot: { SpotImages: []}}
 
 
 const spotReducer = (state = initialState, action) => {
@@ -128,6 +151,12 @@ const spotReducer = (state = initialState, action) => {
         case MAKE_SPOT:
             newState = {...state}
             newState.allSpots[action.spot.id] = action.spot;
+            newState.singleSpot = action.spot;
+            return newState;
+        case ADD_IMAGE:
+            newState = {...state};
+            // newState.allSpots[action.image.spotId] previewImage need??don't??
+            newState.singleSpot.SpotImages.push(action.image);
             return newState;
         case UPDATE_SPOT:
             newState = {...state}
