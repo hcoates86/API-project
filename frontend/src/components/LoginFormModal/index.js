@@ -38,9 +38,9 @@ function LoginFormModal() {
     if (credential.length < 4) errorObj["username"] = "Username must be between 4 and 30 characters";
     if (password.length < 6) errorObj['password'] = "Password must be at least 6 characters long";
     setErrors(errorObj)
+    if (credential.length >= 4 && password.length >=6 ) setDisabled(false);
   }, [credential, password])
 
-  // if (!Object.keys(errors).length) setDisabled(false);
 
   return (
     <div className="box">

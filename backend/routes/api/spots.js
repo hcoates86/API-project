@@ -12,7 +12,6 @@ const bodyVal = async (req, res, next) => {
   const err = new Error();
   err.title = "Body validation error";
   err.message = "Validation Error";
-  // err.statusCode = 
   err.status = 400;
   if (!name) errors.push("Name is required");
   else if (name.length > 50) errors.push("Name must be less than 50 characters");
@@ -20,8 +19,8 @@ const bodyVal = async (req, res, next) => {
   if (!city) errors.push("City is required");
   if (!state) errors.push("State is required");
   if (!country) errors.push("Country is required");
-  if (!lat || typeof lat !== 'number') errors.push("Latitude is not valid");
-  if (!lng || typeof lng !== 'number') errors.push("Longitude is not valid");
+  // if (!lat || typeof lat !== 'number') errors.push("Latitude is not valid");
+  // if (!lng || typeof lng !== 'number') errors.push("Longitude is not valid");
   if (!description) errors.push("Description is required");
   if (!price) errors.push("Price per day is required");
   if (errors.length) {
