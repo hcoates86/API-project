@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import {createSpot} from '../../store/spots';
 import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 
 
 const SpotForm = ({ spot }) => {
@@ -27,10 +28,10 @@ const SpotForm = ({ spot }) => {
             address, city, state: aState, country, lat, lng, name, description, price
         }
 
-        if (!Object.values(errors)) {
+        // if (!Object.values(errors)) {
             newSpot = await dispatch(createSpot(newSpot))
-            history.push(`/spots/${newSpot.id}`);
-        }
+            // history.push(`/spots/${newSpot.id}`);
+        // }
     }
 
 

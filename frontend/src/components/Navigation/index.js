@@ -14,7 +14,9 @@ function Navigation({ isLoaded }){
       <li>
         <NavLink exact to="/"> <img src={logo} alt="mybnb logo"></img> <span id='logobnb'>mybnb</span> </NavLink>
       </li>
-      <li>Create a New Spot</li>
+      <li>
+        <NavLink exact to="/spots/new">Create a New Spot</NavLink>
+        </li>
       {isLoaded && (
         <li>
           <ProfileButton user={sessionUser} />
