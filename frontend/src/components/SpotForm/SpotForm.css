@@ -1,0 +1,37 @@
+.borderBox {
+    border-bottom: solid;
+  }
+
+  #display {
+    display: block;
+  }
+
+  .outer {
+    text-align: center;
+  }
+
+  .inner {
+  width: 1000px;
+  text-align: center;
+  }
+
+  label > .txtInput {
+    margin-left: 10px;
+    display: inline-block;
+  }
+
+  #price, .numInput {
+    display: inline-block;
+  }
+
+  .txtInput {
+    width: 100%;
+  }
+
+  .hidden {
+    visibility: hidden;
+  }
+
+  .errors {
+    color: red
+}

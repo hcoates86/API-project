@@ -38,10 +38,9 @@ const ViewSpot = () => {
             <h1>{spot.name}</h1>
             <h3>{spot.city}, {spot.state}, {spot.country}</h3>
           <div id='reserve'>
-            <span>${spot.price} night
-            </span>
-            <span>{avgStarS}</span>
-            <span>{spot.numReviews} {numReviewsS}</span>
+            <p className='price'> ${spot.price} <span>night</span>
+            </p>
+            <p>{avgStarS} &#183; {spot.numReviews} {numReviewsS}</p>
             <button onClick={alertP} id='reserveButton'>Reserve</button>
           </div>
           <div id='outerImgBox'>

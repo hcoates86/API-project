@@ -5,7 +5,7 @@ import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
 import SpotsIndex from './components/Spots/SpotsIndex';
 import ViewSpot from './components/Spots/ViewSpot';
-import SpotForm from "./components/Spots/SpotForm";
+import SpotForm from "./components/SpotForm/SpotForm";
 
 function App() {
   const dispatch = useDispatch();

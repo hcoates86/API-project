@@ -1,4 +1,4 @@
-/* TODO Add site wide styles */
-.errors {
-    color: red
+/* TODO Add site wide styles */  
+.hidden {
+    visibility: hidden;
 }

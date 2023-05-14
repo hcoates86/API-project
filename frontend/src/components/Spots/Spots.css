@@ -49,3 +49,25 @@
   #display {
     display: block;
   }
+
+  .outer {
+    text-align: center;
+  }
+
+  .inner {
+  width: 1000px;
+  text-align: center;
+  }
+
+  label > .txtInput {
+    margin-left: 10px;
+    
+  }
+
+  #price {
+    display: inline-block;
+  }
+
+  .errors {
+    color: red
+}
