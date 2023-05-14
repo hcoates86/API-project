@@ -18,7 +18,10 @@ const SpotForm = ({ spot }) => {
     const [description, setDescription] = useState('');
     const [price, setPrice] = useState('');
     const [prevImg, setPrevImg] = useState('');
-    const [imgurl, setImgurl] = useState('');
+    const [imgurl1, setImgurl1] = useState('');
+    const [imgurl2, setImgurl2] = useState('');
+    const [imgurl3, setImgurl3] = useState('');
+    const [imgurl4, setImgurl4] = useState('');
 
     const [errors, setErrors] = useState({});
     
