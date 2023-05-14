@@ -29,7 +29,7 @@ const SpotForm = ({ spot }) => {
 
     useEffect(()=> {
         const errorObj = {};
-        const urlArray = [prevImg, imgurl1, imgurl2, imgurl3, imgurl4];
+        // const urlArray = [prevImg, imgurl1, imgurl2, imgurl3, imgurl4];
         const fileTypes = ['.jpeg', '.png', '.jpg'];
 
         if (!address) errorObj['address'] = 'Address is required' ;
@@ -44,13 +44,32 @@ const SpotForm = ({ spot }) => {
         if (!prevImg) errorObj['prevImg'] = 'Preview image is required';
 
 
-        for (let i = 0; i < urlArray.length; i++) {
-            const url = urlArray[i];
-            if (fileTypes.some(type => {
-                return url.endsWith(type)})) {
-                errorObj[url] = 'Image URL must end in .png, .jpg, or .jpeg';
-            } 
-        }
+        if (!(fileTypes.some(type => {
+            return prevImg.endsWith(type)}))) {
+            errorObj['prevImg'] = 'Image URL must end in .png, .jpg, or .jpeg';
+        } if (!(fileTypes.some(type => {return imgurl1.endsWith(type)})) && imgurl1.length) {
+            errorObj['imgurl1'] = 'Image URL must end in .png, .jpg, or .jpeg';
+        } if (!(fileTypes.some(type => {
+            return imgurl2.endsWith(type)})) && imgurl2.length) {
+            errorObj['imgurl2'] = 'Image URL must end in .png, .jpg, or .jpeg';
+        } if (!(fileTypes.some(type => {
+            return imgurl3.endsWith(type)})) && imgurl3.length) {
+            errorObj['imgurl3'] = 'Image URL must end in .png, .jpg, or .jpeg';
+        } if (!(fileTypes.some(type => {
+            return imgurl4.endsWith(type)})) && imgurl4.length) {
+            errorObj['imgurl4'] = 'Image URL must end in .png, .jpg, or .jpeg';
+        } 
+
+
+
+
+        // for (let i = 0; i < urlArray.length; i++) {
+        //     const url = urlArray[i];
+            // if (fileTypes.some(type => {
+            //     return url.endsWith(type)})) {
+            //     errorObj[url] = 'Image URL must end in .png, .jpg, or .jpeg';
+            // } 
+        // }
         setErrors(errorObj);
         // if (!prevImg.endsWith('.png') || !prevImg.endsWith('.jpg') || !prevImg.endsWith('.jpeg')) {
         //         errorObj['prevImg'] = 'Image URL must end in .png, .jpg, or .jpeg';
@@ -73,7 +92,7 @@ const SpotForm = ({ spot }) => {
         // errorClass.forEach(one => one.classList.remove("hidden"));
         errorClass.forEach(one => one.removeAttribute("hidden"));
 
-        imgurl1.forceUpdate()
+        // SpotForm().forceUpdate()
         // Object.assign(errorLog, errors);
 
         // console.log('log',errorLog);
@@ -83,11 +102,11 @@ const SpotForm = ({ spot }) => {
                 address, city, state: aState, country, lat: 1, lng: 1, name, description, price
             }
 
-                newSpot = dispatch(createSpot(newSpot))
+                newSpot = await dispatch(createSpot(newSpot))
 
             if (!('id' in  newSpot)) {
                 return false
-            } else {
+            } 
                 const noImgUrl = 'https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg';
                 let images = [
                     {url: prevImg, preview: true}, 
@@ -99,13 +118,13 @@ const SpotForm = ({ spot }) => {
 
                 console.log(images);
                 
-                images.forEach(image => {
+                images.forEach(async (image) => {
                     image["spotId"] = newSpot.id;
-                    dispatch(postImage(image))
+                    await dispatch(postImage(image))
                 })
    
                 history.push(`/spots/${newSpot.id}`);
-            }
+            
     }
 
 
