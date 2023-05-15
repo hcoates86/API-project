@@ -12,7 +12,6 @@ const bodyVal = async (req, res, next) => {
   const err = new Error();
   err.title = "Body validation error";
   err.message = "Validation Error";
-  // err.statusCode = 
   err.status = 400;
   if (!name) errors.push("Name is required");
   else if (name.length > 50) errors.push("Name must be less than 50 characters");
@@ -20,8 +19,8 @@ const bodyVal = async (req, res, next) => {
   if (!city) errors.push("City is required");
   if (!state) errors.push("State is required");
   if (!country) errors.push("Country is required");
-  if (!lat || typeof lat !== 'number') errors.push("Latitude is not valid");
-  if (!lng || typeof lng !== 'number') errors.push("Longitude is not valid");
+  // if (!lat || typeof lat !== 'number') errors.push("Latitude is not valid");
+  // if (!lng || typeof lng !== 'number') errors.push("Longitude is not valid");
   if (!description) errors.push("Description is required");
   if (!price) errors.push("Price per day is required");
   if (errors.length) {
@@ -71,9 +70,10 @@ router.get('/', async (req, res, next) => {
     } else {
       const avg = await Review.sum('stars', { where: { spotId: spot.id }});
        avgStarRating = avg / reviewCount;
+       avgStarRating = Number.parseFloat(avgStarRating).toFixed(1);
     }
     let image = await currSpot.getSpotImages({ attributes: ['url'], where: { preview: true }})
-    if (!image || !image.length) image = 'No preview image';
+    if (!image || !image.length) image = 'https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg';
 
     spot.avgRating = avgStarRating;
     spot.previewImage = image[0].url || image;
@@ -100,7 +100,7 @@ router.get('/:spotId/reviews', findSpot, async (req, res, next) => {
   const spot = await Spot.findByPk(req.params.spotId);
   const reviews = await spot.getReviews({raw: true});
   let arr = [];
-  if (!reviews || !reviews.length) arr = 'There are no reviews for this spot.' 
+  if (!reviews || !reviews.length) arr = 'New' 
   for (let review of reviews) {
     const currReview = await Review.findByPk(review.id);
     let rImages = await currReview.getReviewImages({attributes: ['id', 'url']});

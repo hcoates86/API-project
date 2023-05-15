@@ -1,0 +1,136 @@
+#indexBox {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+}
+  
+  #outer-box {
+    height: 700px;
+    width: 1000px;
+    margin: 4em;
+  }
+  .previewBox {
+    width: 500px;
+    box-sizing: content-box;
+  }
+  #outerImgBox {
+    flex-flow: row wrap;
+  }
+  
+  /* .innerImgBox {
+    flex: 1;
+  
+  } */
+  
+  #reserve {
+    width: 400px;
+    position: sticky;
+    top: 50px;
+  }
+  
+  #reserveButton {
+    padding: 12px;
+    width: 350px;
+    color: white;
+    background-color: salmon;
+    box-shadow: 4px 4px 0px black;
+  }
+
+  .borderBox {
+    border-bottom: solid;
+  }
+
+  #display {
+    display: block;
+  }
+
+  .outer {
+    text-align: center;
+  }
+
+  .inner {
+  width: 1000px;
+  text-align: center;
+  }
+
+  label > .txtInput {
+    margin-left: 10px;
+    
+  }
+
+  #price {
+    display: inline-block;
+  }
+
+  .errors {
+    color: red
+}
+
+
+
+/*  spotsindex*/
+/* #indexBox {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+} */
+
+.imgtop {
+  height: 350px;
+  width: 350px;
+}
+
+.spotBox {
+  display: flex;
+  height: 370px;
+  width: 350px;
+  flex-basis: 23%;
+}
+
+.thumbnail {
+  width: 350px;
+  height: 300px;
+  margin-bottom: 5px;
+  object-fit: cover;
+}
+
+.infoBox {
+  display: block;
+  height: 100x;
+  width: 350px;
+}
+
+.infoBox-left{
+  display: inline-block;
+  text-align: left;
+  width: 48%;
+}
+
+.infoBox-right {
+  text-align: right;
+  display: inline-block;
+  width: 49%;
+  vertical-align: 17px;
+}
+
+.infoBox p {
+  margin-top: 5px;
+  line-height: 8px;
+}
+
+#cash {
+  font-weight: 600;
+}
+
+.location, .stars {
+  font-size: 17px;
+}
+
+#indexBox a {
+  display: flex;
+}
+
+.child-box {
+flex: 1;
+flex-basis: 23%;
+}
