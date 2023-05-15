@@ -31,7 +31,7 @@ const makeSpot = (spot) => {
 const updateSpot = (spot) => {
     return {
         type: UPDATE_SPOT,
-        spotId
+        spot
     }
 }
 
@@ -97,6 +97,9 @@ export const postImage = (image) => async (dispatch) => {
         const newImage = await res.json();
         dispatch(addImage(newImage));
         return newImage;
+    } else {
+        const errors = await res.json();
+        return errors;
     }
 }
 
@@ -150,13 +153,13 @@ const spotReducer = (state = initialState, action) => {
             return newState;
         case MAKE_SPOT:
             newState = {...state}
-            newState.allSpots[action.spot.id] = action.spot;
+            // newState.allSpots[action.spot.id] = action.spot;
             newState.singleSpot = action.spot;
             return newState;
         case ADD_IMAGE:
             newState = {...state};
-            // newState.allSpots[action.image.spotId] previewImage need??don't??
-            newState.singleSpot.SpotImages.push(action.image);
+            const old = newState.singleSpot.SpotImages;
+            newState.singleSpot.SpotImages = [...old, action.image];
             return newState;
         case UPDATE_SPOT:
             newState = {...state}

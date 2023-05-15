@@ -1,37 +1,54 @@
 .borderBox {
-    border-bottom: solid;
-  }
+  border-bottom: solid 2px;
+  padding-bottom: 2em;
+  padding-top: 1em;
+}
 
-  #display {
-    display: block;
-  }
+#display {
+  display: block;
+}
 
-  .outer {
-    text-align: center;
-  }
-
-  .inner {
-  width: 1000px;
+.outer {
+  width: 100%;
+  display: inline-block;
   text-align: center;
-  }
+}
 
-  label > .txtInput {
-    margin-left: 10px;
-    display: inline-block;
-  }
+.inner {
+width: 500px;
+display: inline-block;
+text-align: start;
+}
 
-  #price, .numInput {
-    display: inline-block;
-  }
 
-  .txtInput {
-    width: 100%;
-  }
+.txtInput {
+  margin-left: 10px;
+  width: 100%;
+  display: inline-block;
+  padding: 3px;
+  margin-top: 2px;
+  margin-bottom: 5px;
+}
 
-  .hidden {
-    visibility: hidden;
-  }
+.city-state {
+display: inline;
+width: 1000px;
+}
 
-  .errors {
-    color: red
+#city {
+width: 68%;
+}
+
+#state {
+width: 28%;
+}
+
+#createButton {
+  padding: 12px;
+  border: solid black 2px;
+  width: 200px;
+  box-shadow: 4px 4px 0px black;
+  background-color: salmon;
+  color: white;
+  margin: 15px;
 }

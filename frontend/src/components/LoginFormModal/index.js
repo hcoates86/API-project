@@ -43,9 +43,10 @@ function LoginFormModal() {
 
 
   return (
+    <div className="outer-box">
     <div className="box">
       <h1>Log In</h1>
-      <p className="errors">{errors.login}</p>
+      <p className="errors highlight">{errors.login}</p>
       <form onSubmit={handleSubmit}>
         <label >
           <input
@@ -76,6 +77,7 @@ function LoginFormModal() {
         >Log In</button>
       </form>
       <h2 id='demo' onClick={loginDemo}>Log in as Demo User</h2>
+    </div>
     </div>
   );
 }

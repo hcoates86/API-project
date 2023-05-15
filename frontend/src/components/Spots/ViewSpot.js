@@ -7,9 +7,6 @@ import { useEffect } from 'react';
 
 const ViewSpot = () => {
     const { spotId } = useParams();
-    const spot = useSelector((state) => {
-       return state.spots.singleSpot;
-    })
 
     const dispatch = useDispatch();
 
@@ -17,10 +14,16 @@ const ViewSpot = () => {
         dispatch(fetchSpot(spotId));
       }, [dispatch, spotId]);
 
+        const spot = useSelector((state) => {
+       return state.spots.singleSpot;
+    })  
+
     const alertP = () => alert('Feature Coming Soon...');
 
     if (!spot) return;
     const spotImages = spot.SpotImages;
+
+    console.log('spot', spot);
     
     let avgStarS;
     let numReviewsS = "Reviews";
@@ -45,10 +48,10 @@ const ViewSpot = () => {
           </div>
           <div id='outerImgBox'>
             <div className='previewBox'>
-                    {spotImages.map((image) => (
+                    {spotImages?.map((image) => (
                         image.preview === true 
-                        ? <img src={image.url}></img>
-                        : <div className='innerImgBox'><img src={image.url}></img> </div>
+                        ? <img src={image.url} alt={spot.name} key={image.id}></img>
+                        : <div key={image.id} className='innerImgBox'><img key={image.id} src={image.url} alt={spot.name}></img> </div>
                     ))}
             </div>
           </div>

@@ -1,37 +1,46 @@
+
+.outer-box {
+  display: block;
+  text-align: center;
+}
+
 .box {
-    display: grid;
-    border-top: solid black 2px;
+  display: flex;
+  border-radius: 25px;
+  justify-content: center;
+  height: 400px;
+  flex-direction: column;
+  width: 400px;
 }
 
-label, button, h1 {
-    margin: 10px;
-    font-family: 'Helvetica Neue', 'Helvetica', sans-serif;
-}
-
-h1 {
-    font-size: 1.5em;
-  }
-  
-#demo {
-  font-size: 1em;
-  text-decoration: underline;
-  color:rgba(0, 0, 153, 0.698);
-  cursor: pointer;
-}  
 
 .input {
-  display: inline-grid;
-  border: 1px solid black;
+  display: inline-block;
+  border: 2px solid black;
   padding: 12px;
   border-radius: 5px;
   color: gray;
-  font-size: 12px;
+  font-size: 14px;
   width: 350px;
-  margin-bottom: .5em;
+  margin-bottom: 0.5em;
 }
 
 #login {
   padding: 12px;
+  border: solid black 2px;
   width: 350px;
   box-shadow: 4px 4px 0px black;
+  background-color: salmon;
+  color: white;
+  margin: 15px;
+}
+
+#demo {
+  text-decoration: underline;
+  color: darkslategray;
+  cursor: pointer;
+}
+
+.highlight {
+  background-color: blue;
 }

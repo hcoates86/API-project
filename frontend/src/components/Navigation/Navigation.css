@@ -1,4 +1,4 @@
-li {
+/* li {
     height: 30px;
     width: 100px;
     display: inline-block;
@@ -6,11 +6,13 @@ li {
     text-decoration: none;
     cursor: pointer;
     text-align: center;
-}
+} */
 
 #navbar {
     position: sticky;
-    border-bottom: solid gray;
+    border-bottom: solid 2px rgb(159, 159, 159);
+    height: 300px;
+    display: block;
 }
 
 .active {
@@ -19,10 +21,24 @@ li {
 }
 
 #logobnb {
+    display: inline-block;
     text-decoration: none;
     font-family: 'Gloria Hallelujah', cursive;
     font-size: 2em;
 }
+
+.navlogo-container {
+    display: inline-block;
+    text-align: left;
+    width: auto;
+    height: 70px;
+    vertical-align: top;
+}
+
+
+/* #logo-nav {
+
+} */
 
 /* i {
     background-color: transparent;

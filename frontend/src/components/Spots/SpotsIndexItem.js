@@ -4,15 +4,27 @@ import './Spots.css';
 const SpotsIndexItem = ({ spot }) => {
     let image = spot.previewImage || null;
     return (
-        <div>
-          <Link to={`/spots/${spot.id}`} title={spot.name}>
-            <img className="thumbnail" src={image} alt={spot.name}></img>
-            {spot.city}, {spot.state}
-            <p id="rating">★{spot.avgRating}</p>
-            <p id="price">${spot.price} night</p>
-          </Link>
+      <Link to={`/spots/${spot.id}`} title={spot.name}>
+        <div className='spotBox'>
+          <div></div>
+
+          <img className="thumbnail" src={image} alt={spot.name}></img>
+          <div className='infoBox'>
+
+            <div className='infoBox-left'>
+              <p className='location'>{spot.city}, {spot.state}</p>
+              <p><span id="cash">${spot.price}</span><span> night</span></p>
+            </div>
+            
+            <div className='infoBox-right'>
+              <p className="stars">★{spot.avgRating}</p>
+            </div>
+          </div>
 
         </div>
+      </Link>
+
+        
     );
   };
   

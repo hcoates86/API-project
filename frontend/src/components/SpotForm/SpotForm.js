@@ -1,12 +1,16 @@
 import { useState, useEffect } from 'react';
 import { createSpot, postImage } from '../../store/spots';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import './SpotForm.css';
+import noImgUrl from '../../images/NoImage.png';
 
 const SpotForm = ({ spot }) => {
     const history = useHistory();
     const dispatch = useDispatch();
+    const user = useSelector(state => {
+        return state.session.user
+     })
 
     const [address, setAddress] = useState('');
     const [city, setCity] = useState('');
@@ -107,21 +111,42 @@ const SpotForm = ({ spot }) => {
             if (!('id' in  newSpot)) {
                 return false
             } 
-                const noImgUrl = 'https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg';
-                let images = [
-                    {url: prevImg, preview: true}, 
-                    {url: imgurl1 || noImgUrl, preview: false}, 
-                    {url: imgurl2 || noImgUrl, preview: false}, 
-                    {url: imgurl3 || noImgUrl, preview: false}, 
-                    {url: imgurl4 || noImgUrl, preview: false}
-                ];
+                // const noImgUrl = noUrl;
+                // let images = [];
+                //     {url: prevImg, preview: true}, 
+                //     {url: imgurl1 || noImgUrl, preview: false}, 
+                //     {url: imgurl2 || noImgUrl, preview: false}, 
+                //     {url: imgurl3 || noImgUrl, preview: false}, 
+                //     {url: imgurl4 || noImgUrl, preview: false}
+                // ];
+               
+                let newImgPrev = {url: prevImg, preview: true, spotId: newSpot.id};
+                let newImg1 = {url: imgurl1 || noImgUrl, preview: false, spotId: newSpot.id};
+                let newImg2 = {url: imgurl2 || noImgUrl, preview: false, spotId: newSpot.id};
+                let newImg3 = {url: imgurl3 || noImgUrl, preview: false, spotId: newSpot.id}; 
+                let newImg4 = {url: imgurl4 || noImgUrl, preview: false, spotId: newSpot.id};
 
-                console.log(images);
                 
-                images.forEach(async (image) => {
-                    image["spotId"] = newSpot.id;
-                    await dispatch(postImage(image))
-                })
+                newSpot.Owner = {
+                    id: user.id,
+                    firstName: user.firstName,
+                    lastName: user.lastName
+                }
+
+                // images.push(newImgPrev);
+                // images.push(newImg1);
+                // images.push(newImg2);
+                // images.push(newImg3);
+                // images.push(newImg4);
+
+                // newSpot.SpotImages = images;
+                
+                dispatch(postImage(newImgPrev));
+                dispatch(postImage(newImg1));
+                dispatch(postImage(newImg2));
+                dispatch(postImage(newImg3));
+                dispatch(postImage(newImg4));
+
    
                 history.push(`/spots/${newSpot.id}`);
             
@@ -159,25 +184,29 @@ const SpotForm = ({ spot }) => {
         </label>
         <p className='errors' hidden>{errors.address}</p>
 
-        <label>City
+    <div className='city-state'>
         <div id='city'>
-            <input type='text' className='txtInput' 
-                value={city}
-                onChange={(e) => setCity(e.target.value)}
-                placeholder='city' />
-        </div>
-        </label>
-        <p className='errors' hidden>{errors.city}</p>
+            <label>City
+            
+                <input type='text' className='txtInput' 
+                    value={city}
+                    onChange={(e) => setCity(e.target.value)}
+                    placeholder='city' />
+            
+            </label></div>
+            <p className='errors' hidden>{errors.city}</p>
+            <div id='state'>
+            <label>State
+            
+                <input type='text' className='txtInput' 
+                    value={aState}
+                    onChange={(e) => setAState(e.target.value)}
+                    placeholder='STATE' />
+            
+            </label></div>
+            <p className='errors' hidden>{errors.state}</p>
+    </div>
 
-        <label>State
-        <div id='state'>
-            <input type='text' className='txtInput' 
-                value={aState}
-                onChange={(e) => setAState(e.target.value)}
-                placeholder='STATE' />
-        </div>
-        </label>
-        <p className='errors' hidden>{errors.state}</p>
 
         {/* <label>Latitude
         <input type='text' className='txtInput' 
@@ -199,6 +228,7 @@ const SpotForm = ({ spot }) => {
         <p>Mention the best features of your space, any special amenities like fast wifi or parking, and what you love about the neighborhood.</p>
 
         <textarea 
+            className='txtInput' 
             value={description}
             onChange={(e) => setDescription(e.target.value)}
             rows="8" cols="65"
@@ -225,9 +255,9 @@ const SpotForm = ({ spot }) => {
         <h2>Set a base price for your spot</h2>
         <p>Competitive pricing can help your listing stand out and rank higher in search results.</p>
         <div id='price'>
-            <label>$
+            <label><strong>$ </strong>
             <input type='number' 
-                className='numInput' 
+                className='txtInput' 
                 value={price}
                 onChange={(e) => setPrice(e.target.value)}
                 placeholder='Price per night (USD)' />
@@ -270,7 +300,7 @@ const SpotForm = ({ spot }) => {
             </div>
 
         <div>
-        <input type='submit' value='Create Spot' />
+        <input type='submit' id='createButton' value='Create Spot' />
         </div>
         </form>
         </div></div>

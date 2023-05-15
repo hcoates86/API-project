@@ -12,7 +12,11 @@ function Navigation({ isLoaded }){
     <div id='navbar'>
     <ul>
       <li>
-        <NavLink exact to="/"> <img src={logo} alt="mybnb logo"></img> <span id='logobnb'>mybnb</span> </NavLink>
+        <NavLink exact to="/">
+          <div className='navlogo-container'>
+        <img id='logo-nav' src={logo} alt="mybnb logo"></img> <span id='logobnb'>mybnb</span> 
+        </div>
+        </NavLink>
       </li>
      
       {isLoaded && (
