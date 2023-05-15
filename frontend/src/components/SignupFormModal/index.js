@@ -3,9 +3,13 @@ import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import * as sessionActions from "../../store/session";
 import "./SignupForm.css";
+import { useHistory } from 'react-router-dom';
+
 
 function SignupFormModal() {
   const dispatch = useDispatch();
+  const history = useHistory();
+
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [firstName, setFirstName] = useState("");
@@ -13,6 +17,9 @@ function SignupFormModal() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errors, setErrors] = useState({});
+  const [disabled, setDisabled] = useState(true);//this, & make it gray when disabled
+
+
   const { closeModal } = useModal();
 
 
@@ -44,6 +51,7 @@ function SignupFormModal() {
         })
       )
         .then(closeModal)
+        .then(history.push('/'))
         .catch(async (res) => {
           const data = await res.json();
           if (data && data.errors) {
@@ -57,12 +65,38 @@ function SignupFormModal() {
   };
 
   return (
-    <div className="box">
-      <h1>Sign Up</h1>
+    <div className="signup-outer-box">
+      <div className="signup-box">
+      <h1 id='signup-h1'>Sign Up</h1>
       <form onSubmit={handleSubmit}>
+
+       
+
         <label>
-          Email
-          <input
+          <input className='signup-input'
+            placeholder="First Name"
+            type="text"
+            value={firstName}
+            onChange={(e) => setFirstName(e.target.value)}
+            required
+          />
+        </label>
+        {errors.firstName && <p className='errors'>{errors.firstName}</p>}
+
+        <label>
+          <input className='signup-input'
+            placeholder="Last Name"
+            type="text"
+            value={lastName}
+            onChange={(e) => setLastName(e.target.value)}
+            required
+          />
+        </label>
+        {errors.lastName && <p className='errors'>{errors.lastName}</p>}
+
+        <label>
+          <input className='signup-input'
+            placeholder="Email"
             type="text"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -72,8 +106,8 @@ function SignupFormModal() {
         
         {errors.email && <p className='errors'>{errors.email}</p>}
         <label>
-          Username
-          <input
+          <input className='signup-input'
+            placeholder="Username"
             type="text"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
@@ -82,28 +116,9 @@ function SignupFormModal() {
         </label>
         {errors.username && <p className='errors'>{errors.username}</p>}
         <label>
-          First Name
-          <input
-            type="text"
-            value={firstName}
-            onChange={(e) => setFirstName(e.target.value)}
-            required
-          />
-        </label>
-        {errors.firstName && <p className='errors'>{errors.firstName}</p>}
-        <label>
-          Last Name
-          <input
-            type="text"
-            value={lastName}
-            onChange={(e) => setLastName(e.target.value)}
-            required
-          />
-        </label>
-        {errors.lastName && <p className='errors'>{errors.lastName}</p>}
-        <label>
-          Password
-          <input
+          
+          <input className='signup-input'
+            placeholder="Password"
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
@@ -112,8 +127,9 @@ function SignupFormModal() {
         </label>
         {errors.password && <p className='errors'>{errors.password}</p>}
         <label>
-          Confirm Password
-          <input
+          
+          <input className='signup-input'
+            placeholder="Confirm Password"
             type="password"
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
@@ -123,9 +139,9 @@ function SignupFormModal() {
         {errors.confirmPassword && (
           <p className='errors'>{errors.confirmPassword}</p>
         )}
-        <button type="submit">Sign Up</button>
+        <button id='signup-button' type="submit" disabled={disabled}>Sign Up</button>
       </form>
-    </div>
+    </div></div>
   );
 }
 

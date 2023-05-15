@@ -24,6 +24,7 @@ function LoginFormModal() {
           setErrors(data.errors);
           const login = {login: "The provided credentials were invalid"}
           setErrors(login)
+          console.log(errors);//test
         }
       });
   };
@@ -43,9 +44,9 @@ function LoginFormModal() {
 
 
   return (
-    <div className="outer-box">
-    <div className="box">
-      <h1>Log In</h1>
+    <div className="login-outer-box">
+    <div className="login-box">
+      <h1 id='login-h1'>Log In</h1>
       <p className="errors highlight">{errors.login}</p>
       <form onSubmit={handleSubmit}>
         <label >
@@ -72,7 +73,7 @@ function LoginFormModal() {
           <p>{errors.credential}</p>
         )}
         <button type="submit"
-                id="login"
+                id="login-button"
                 disabled={disabled}
         >Log In</button>
       </form>

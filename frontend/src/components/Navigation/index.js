@@ -9,29 +9,28 @@ function Navigation({ isLoaded }){
   const sessionUser = useSelector(state => state.session.user);
 
   return (
-    <div id='navbar'>
-    <ul>
-      <li>
+
+    <ul className='navbar'>
+      <li className='left-nav'>
         <NavLink exact to="/">
-          <div className='navlogo-container'>
-        <img id='logo-nav' src={logo} alt="mybnb logo"></img> <span id='logobnb'>mybnb</span> 
+          <div className='navlogo-container'> 
+        <img className='logo-nav' src={logo} alt="mybnb logo"></img> <span id='logobnb'>mybnb</span> 
         </div>
         </NavLink>
       </li>
      
       {isLoaded && (
         <>
-         <li>
+         <li className='right-nav'>
         <NavLink exact to="/spots/new">Create a New Spot</NavLink>
         </li>
-        <li>
+        <li className='right-nav'>
           <ProfileButton user={sessionUser} />
         </li>  
         </>   
       )}
 
     </ul>
-    </div>
   );
 }
 

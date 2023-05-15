@@ -1,18 +1,18 @@
-/* li {
-    height: 30px;
-    width: 100px;
-    display: inline-block;
-
-    text-decoration: none;
-    cursor: pointer;
-    text-align: center;
-} */
-
-#navbar {
+.navbar {
     position: sticky;
     border-bottom: solid 2px rgb(159, 159, 159);
-    height: 300px;
-    display: block;
+    height: 100px;
+    list-style-type: none;
+    margin-bottom: 30px;
+    padding: 0;
+}
+
+.left-nav {
+  float: left;
+}
+
+.right-nav {
+  float: right;
 }
 
 .active {
@@ -29,17 +29,5 @@
 
 .navlogo-container {
     display: inline-block;
-    text-align: left;
-    width: auto;
-    height: 70px;
-    vertical-align: top;
+    height: 50px;
 }
-
-
-/* #logo-nav {
-
-} */
-
-/* i {
-    background-color: transparent;
-} */

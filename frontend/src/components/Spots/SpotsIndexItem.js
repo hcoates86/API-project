@@ -6,22 +6,22 @@ const SpotsIndexItem = ({ spot }) => {
     return (
       <Link to={`/spots/${spot.id}`} title={spot.name}>
         <div className='spotBox'>
-          <div></div>
+          <div className='child-box'>
 
           <img className="thumbnail" src={image} alt={spot.name}></img>
           <div className='infoBox'>
 
             <div className='infoBox-left'>
               <p className='location'>{spot.city}, {spot.state}</p>
-              <p><span id="cash">${spot.price}</span><span> night</span></p>
+              <p><span id="cash">${spot.price}</span> night</p>
             </div>
-            
+
             <div className='infoBox-right'>
               <p className="stars">★{spot.avgRating}</p>
             </div>
           </div>
 
-        </div>
+        </div></div>
       </Link>
 
         

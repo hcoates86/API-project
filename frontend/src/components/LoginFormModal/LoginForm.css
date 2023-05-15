@@ -1,10 +1,10 @@
 
-.outer-box {
+.login-outer-box {
   display: block;
   text-align: center;
 }
 
-.box {
+.login-box {
   display: flex;
   border-radius: 25px;
   justify-content: center;
@@ -19,13 +19,13 @@
   border: 2px solid black;
   padding: 12px;
   border-radius: 5px;
-  color: gray;
+  /* color: gray; */
   font-size: 14px;
   width: 350px;
   margin-bottom: 0.5em;
 }
 
-#login {
+#login-button {
   padding: 12px;
   border: solid black 2px;
   width: 350px;
@@ -43,4 +43,8 @@
 
 .highlight {
   background-color: blue;
+}
+
+#login-h1, #demo {
+  margin: 0;
 }

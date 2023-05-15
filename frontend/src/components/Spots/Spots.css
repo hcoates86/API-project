@@ -1,9 +1,7 @@
 #indexBox {
-    height: 150px;
-    width: 150px;
     display: flex;
     flex-flow: row wrap;
-    justify-content: space-between;
+    justify-content: space-around;
 }
   
   #outer-box {
@@ -86,12 +84,14 @@
   display: flex;
   height: 370px;
   width: 350px;
+  flex-basis: 23%;
 }
 
 .thumbnail {
   width: 350px;
   height: 300px;
   margin-bottom: 5px;
+  object-fit: cover;
 }
 
 .infoBox {
@@ -110,7 +110,7 @@
   text-align: right;
   display: inline-block;
   width: 49%;
-  vertical-align: top;
+  vertical-align: 17px;
 }
 
 .infoBox p {
@@ -124,4 +124,13 @@
 
 .location, .stars {
   font-size: 17px;
+}
+
+#indexBox a {
+  display: flex;
+}
+
+.child-box {
+flex: 1;
+flex-basis: 23%;
 }
