@@ -4,6 +4,8 @@ import './Spots.css';
 const SpotsIndexItem = ({ spot }) => {
     let image = spot.previewImage || null;
     return (
+      //need the margin to be outside of the link
+      <div className='marginForCard'>
       <Link to={`/spots/${spot.id}`} title={spot.name}>
         <div className='spotBox'>
           <div>
@@ -24,7 +26,7 @@ const SpotsIndexItem = ({ spot }) => {
         </div></div>
       </Link>
 
-        
+        </div>
     );
   };
   
