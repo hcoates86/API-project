@@ -32,7 +32,7 @@ const ViewSpot = () => {
         avgStarS = "★New"
     } else avgStarS = `★${spot.avgStarRating.toFixed(1)}`
 
-    if (spot.numReviews == 1) numReviewsS = "Review";
+    if (spot.numReviews === +1) numReviewsS = "Review"; //added + and ===, check if still works
     
 
 
