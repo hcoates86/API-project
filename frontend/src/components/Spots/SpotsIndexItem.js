@@ -6,7 +6,7 @@ const SpotsIndexItem = ({ spot }) => {
     return (
       <Link to={`/spots/${spot.id}`} title={spot.name}>
         <div className='spotBox'>
-          <div className='child-box'>
+          <div>
 
           <img className="thumbnail" src={image} alt={spot.name}></img>
           <div className='infoBox'>

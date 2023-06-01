@@ -2,6 +2,8 @@
     display: flex;
     flex-flow: row wrap;
     justify-content: space-around;
+    height: 100%;
+    width: 100%;
 }
   
   #outer-box {
@@ -84,7 +86,8 @@
   display: flex;
   height: 370px;
   width: 350px;
-  flex-basis: 23%;
+  flex: 1 1 25%;
+  margin: 15px;
 }
 
 .thumbnail {
@@ -130,7 +133,7 @@
   display: flex;
 }
 
-.child-box {
+/* .child-box {
 flex: 1;
 flex-basis: 23%;
-}
+} */
