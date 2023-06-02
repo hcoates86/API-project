@@ -29,10 +29,10 @@ const ViewSpot = () => {
     let numReviewsS = "Reviews";
 
     if (!spot.avgStarRating) {
-        avgStarS = "★New"
-    } else avgStarS = `★${spot.avgStarRating.toFixed(1)}`
+        avgStarS = "New"
+    } else avgStarS = `${spot.avgStarRating.toFixed(1)}`
 
-    if (spot.numReviews == 1) numReviewsS = "Review";
+    if (spot.numReviews === +1) numReviewsS = "Review";
     
 
 
@@ -40,12 +40,7 @@ const ViewSpot = () => {
         <div id='outer-box'>
             <h1>{spot.name}</h1>
             <h3>{spot.city}, {spot.state}, {spot.country}</h3>
-          <div id='reserve'>
-            <p className='price'> ${spot.price} <span>night</span>
-            </p>
-            <p>{avgStarS} &#183; {spot.numReviews} {numReviewsS}</p>
-            <button onClick={alertP} id='reserveButton'>Reserve</button>
-          </div>
+         
           <div id='outerImgBox'>
             <div className='previewBox'>
                     {spotImages?.map((image) => (
@@ -55,7 +50,14 @@ const ViewSpot = () => {
                     ))}
             </div>
           </div>
-            <div>
+
+           <div className='reserve'>
+            <p className='price'><span>${spot.price}</span> night</p>
+            <p><span id="star">★</span>{avgStarS} &#183; {spot.numReviews} {numReviewsS}</p>
+            <button onClick={alertP} id='reserveButton'>Reserve</button>
+          </div>
+
+            <div className='spotDesc'>
             <h2>Hosted by {spot.Owner.firstName} {spot.Owner.lastName}</h2>
             <p>{spot.description}</p>
             </div>

@@ -4,9 +4,10 @@ import './Spots.css';
 const SpotsIndexItem = ({ spot }) => {
     let image = spot.previewImage || null;
     return (
+      <div className='marginForCard'>
       <Link to={`/spots/${spot.id}`} title={spot.name}>
         <div className='spotBox'>
-          <div className='child-box'>
+          <div>
 
           <img className="thumbnail" src={image} alt={spot.name}></img>
           <div className='infoBox'>
@@ -24,7 +25,7 @@ const SpotsIndexItem = ({ spot }) => {
         </div></div>
       </Link>
 
-        
+        </div>
     );
   };
   
