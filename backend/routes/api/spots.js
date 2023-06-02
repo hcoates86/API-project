@@ -73,7 +73,7 @@ router.get('/', async (req, res, next) => {
        avgStarRating = Number.parseFloat(avgStarRating).toFixed(1);
     }
     let image = await currSpot.getSpotImages({ attributes: ['url'], where: { preview: true }})
-    if (!image || !image.length) image = 'https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg';
+    if (!image || !image.length) image = 'https://i.ibb.co/jLWm3Cq/NoImage.png';
 
     spot.avgRating = avgStarRating;
     spot.previewImage = image[0].url || image;

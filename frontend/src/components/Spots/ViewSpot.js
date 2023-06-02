@@ -30,7 +30,7 @@ const ViewSpot = () => {
 
     if (!spot.avgStarRating) {
         avgStarS = "New"
-    } else avgStarS = `${spot.avgStarRating.toFixed(1)}`
+    } else avgStarS = spot.avgStarRating.toFixed(1)
 
     if (spot.numReviews === +1) numReviewsS = "Review";
     
@@ -53,7 +53,7 @@ const ViewSpot = () => {
 
            <div className='reserve'>
             <p className='price'><span>${spot.price}</span> night</p>
-            <p><span id="star">★</span>{avgStarS} &#183; {spot.numReviews} {numReviewsS}</p>
+            <p className='res-reviews'><span id="star">★</span>{avgStarS} &#183; {spot.numReviews} {numReviewsS}</p>
             <button onClick={alertP} id='reserveButton'>Reserve</button>
           </div>
 
