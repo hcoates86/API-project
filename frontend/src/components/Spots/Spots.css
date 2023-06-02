@@ -1,46 +1,89 @@
 #indexBox {
     display: flex;
     flex-flow: row wrap;
-    justify-content: space-around;
+    justify-content: space-evenly;
     height: 100%;
     width: 100%;
 }
   
-  #outer-box {
-    height: 700px;
-    width: 1000px;
-    margin: 4em;
-  }
-  .previewBox {
-    width: 500px;
-    box-sizing: content-box;
-  }
-  #outerImgBox {
-    flex-flow: row wrap;
-  }
-  
-  /* .innerImgBox {
-    flex: 1;
-  
-  } */
-  
-  #reserve {
-    width: 400px;
-    position: sticky;
-    top: 50px;
-  }
-  
-  #reserveButton {
-    padding: 12px;
-    width: 350px;
-    color: white;
-    background-color: salmon;
-    box-shadow: 4px 4px 0px black;
-  }
+#outer-box {
+  width: 1000px;
+  margin: 4em;
+  border-bottom: black solid 2px;
+}
 
-  .borderBox {
-    border-bottom: solid;
-  }
+.previewBox {
+  /*     width: 500px; */
+  /*     box-sizing: content-box; */
+  display: flex;
+}
+
+#outerImgBox {
+  width: 1000px;
+  display: block;
+  flex-flow: row wrap;
+}
+
+.innerImgBox {
+  flex-flow: row wrap;
+}
+
+.innerImgBox > img {
+  display: flex;
+  margin: 3px;
+}
+
+.reserve {
+  float: right;
+  width: 400px;
+  padding: 12px;
+  border: solid black 3px;
+  border-radius: 15px;
+  text-align: center;
+  margin-top: 15px;
+}
+
+.reserve > p {
+  display: inline-block;
+}
+
+.price > span {
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
+.res-reviews {
+  margin-left: 10em;
+}
+
+#reserveButton {
+  padding: 15px;
+  width: 350px;
+  color: white;
+  background-color: salmon;
+  box-shadow: 2px 2px 0px black;
+  cursor: pointer;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 15px;
+}
+
+.borderBox {
+  border-bottom: solid;
+}
+
+#star {
+  font-size: 1.2em;
+  font-weight: bold;
+  margin-right: 2px;
+}
+
+.spotDesc {
+  display: block;
+  width: 600px;
+  min-height: 180px;
+}
 
   #display {
     display: block;
