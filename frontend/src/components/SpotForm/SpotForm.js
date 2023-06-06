@@ -3,9 +3,9 @@ import { createSpot, postImage } from '../../store/spots';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import './SpotForm.css';
-import noImgUrl from '../../images/NoImage.png';
+// import noImgUrl from '../../images/NoImage.png';
 
-const SpotForm = ({ spot }) => {
+const SpotForm = ({ noImgUrl }) => {
     const history = useHistory();
     const dispatch = useDispatch();
     const user = useSelector(state => {

@@ -8,29 +8,31 @@
   
 #outer-box {
   width: 1000px;
-  margin: 4em;
+  margin: auto;
   border-bottom: black solid 2px;
 }
 
-.previewBox {
-  /*     width: 500px; */
-  /*     box-sizing: content-box; */
-  display: flex;
-}
-
-#outerImgBox {
+.grid-container {
+  display: grid;
+  height: 500px;
   width: 1000px;
-  display: block;
-  flex-flow: row wrap;
+  grid-template-areas:
+    "prev prev a b"
+    "prev prev c d";
+  grid-template-columns: 2fr 1fr 1fr;
 }
 
-.innerImgBox {
-  flex-flow: row wrap;
+.grid-container > img {
+  object-fit: cover;
+  width: 248px;
+  height: 248px;
+  margin: 2px;
 }
 
-.innerImgBox > img {
-  display: flex;
-  margin: 3px;
+#preview {
+  grid-area: prev;
+  width: 500px;
+  height: 500px;
 }
 
 .reserve {
