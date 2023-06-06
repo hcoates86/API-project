@@ -121,7 +121,7 @@ const SpotForm = () => {
         <h2>Where's your place located?</h2>
         <p>Guests will only get your exact address once they booked a reservation.</p>
 
-        <label>Country
+        <label>Country <span className='errors' hidden>{errors.country}</span>
         <div id='country'>
             <input type='text' className='txtInput' 
                 value={country}
@@ -130,9 +130,8 @@ const SpotForm = () => {
                 />
         </div>
         </label>
-        <p className='errors' hidden>{errors.country}</p>
 
-        <label>Address
+        <label>Address <span className='errors' hidden>{errors.address}</span>
         <div id='address'>
             <input type='text' className='txtInput' 
                 value={address}
@@ -140,11 +139,10 @@ const SpotForm = () => {
                 placeholder='address' />
         </div>
         </label>
-        <p className='errors' hidden>{errors.address}</p>
 
     <div className='city-state'>
         <div id='city'>
-            <label>City
+            <label>City <span className='errors' hidden>{errors.city}</span>
             
                 <input type='text' className='txtInput' 
                     value={city}
@@ -152,9 +150,8 @@ const SpotForm = () => {
                     placeholder='city' />
             
             </label></div>
-            <p className='errors' hidden>{errors.city}</p>
             <div id='state'>
-            <label>State
+            <label>State <span className='errors' hidden>{errors.state}</span>
             
                 <input type='text' className='txtInput' 
                     value={aState}
@@ -162,7 +159,6 @@ const SpotForm = () => {
                     placeholder='STATE' />
             
             </label></div>
-            <p className='errors' hidden>{errors.state}</p>
     </div>
 
 
