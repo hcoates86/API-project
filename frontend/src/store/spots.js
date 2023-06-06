@@ -49,6 +49,8 @@ const addImage = (image) => {
     }
 }
 
+
+
 export const getSpots = () => async (dispatch) => {
     const res = await csrfFetch('/api/spots');
     if (res.ok) {

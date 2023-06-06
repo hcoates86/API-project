@@ -1,23 +1,29 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { updatedSpot } from '../../store/spots';
+import { getUserSpots } from '../../store/session';
+import SpotsIndexItem from './SpotsIndexItem';
 
 
-const ManageSpots = ({}) => {
+const ManageSpots = () => {
 
     const dispatch = useDispatch();
 
-        const spot = useSelector((state) => {
-       return state.spots.singleSpot;
-    })  
+    const spots = useSelector(state => {
+        return state.user.spots
+    })
 
     useEffect(() => {
-        dispatch(updatedSpot(spot));
-      }, [dispatch, spot]);
+        dispatch(getUserSpots())
+      }, [dispatch]);
 
+    //     const spot = useSelector((state) => {
+    //    return state.spots.singleSpot;
+    // })  
 
-
+    // useEffect(() => {
+    //     dispatch(updatedSpot(spot));
+    //   }, [dispatch, spot]);
 
 
     return (
@@ -26,6 +32,13 @@ const ManageSpots = ({}) => {
             <Link to='/spots/new'>Create a New Spot</Link>
 
 
+            {spots.map((spot) => (
+                <>
+                <SpotsIndexItem spot={spot} key={spot.id}/>
+                <Link to='/'><button>Update</button></Link>
+                <Link to={`/spots/${spot.id}`}><button>Delete</button></Link>
+                </>
+            ))}
 
         </div>
     )

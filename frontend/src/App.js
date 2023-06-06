@@ -6,7 +6,6 @@ import Navigation from "./components/Navigation";
 import SpotsIndex from './components/Spots/SpotsIndex';
 import ViewSpot from './components/Spots/ViewSpot';
 import SpotForm from "./components/SpotForm/SpotForm";
-import noImgUrl from './images/NoImage.png';
 import ManageSpots from "./components/Spots/ManageSpots";
 
 function App() {
@@ -25,14 +24,15 @@ function App() {
             <SpotsIndex />
           </Route>
           <Route exact path="/spots/new">
-            <SpotForm noImgUrl={noImgUrl} />
+            <SpotForm />
           </Route>
           <Route path="/spots/:spotId">
-            <ViewSpot noImgUrl={noImgUrl} />
+            <ViewSpot />
           </Route>
-          <Route path="/">
+          <Route path="/user/spots">
             <ManageSpots />
           </Route>
+          
 
         </Switch>
 

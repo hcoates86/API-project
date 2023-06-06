@@ -4,8 +4,10 @@ import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchSpot } from '../../store/spots';
 import { useEffect } from 'react';
+import noImgUrl from '../../images/NoImage.png';
 
-const ViewSpot = ({noImgUrl}) => {
+
+const ViewSpot = () => {
     const { spotId } = useParams();
     
 
@@ -17,13 +19,15 @@ const ViewSpot = ({noImgUrl}) => {
 
     const spot = useSelector((state) => {
     return state.spots.singleSpot;
-    })  
+    })
+
+    //put a useeffect to check empty spots on grid and fill them with no img ORR do that with CSS??
 
     const alertP = () => alert('Feature Coming Soon...');
 
     if (!spot || !spot.SpotImages) return;
 
-    const spotImages = JSON.stringify(spot.SpotImages);
+    const spotImages = spot.SpotImages;
     
     let avgStarS;
     let numReviewsS = "Reviews";
@@ -37,26 +41,16 @@ const ViewSpot = ({noImgUrl}) => {
     
     // let imgArr = [...spotImages];
     // let prevImage;
-    let prevUrl = spot.SpotImages.filter(image => image.preview === true)[0];
+    // let prevUrl = spot.SpotImages.filter(image => image.preview === true)[0];
 
-    let urlArr = spot.SpotImages.map(image => image.url)
+    // let urlArr = spot.SpotImages.map(image => image.url)
 
 
-    // if (spotImages && spotImages.length) {
-      // for (let i = 0; i < spotImages.length; i++) {
-      //   const image = spotImages[i];
-        console.log('spot.SpotImages',spot.SpotImages);
-      console.log('sptimgs', urlArr);
-      // for (image of spotImages) {
-      // spotImages.forEach(image => {
-        // if (image.preview === true) prevImage = image.url;
-      //   else urlArr.push(image.url);
-      // }
-    // }
-    if (urlArr.length < 4) {
-      urlArr.fill(noImgUrl, urlArr.length - 1, 3)
-    }
-   let prevImage = prevUrl.url || noImgUrl;   
+
+  //   if (urlArr.length < 4) {
+  //     urlArr.fill(noImgUrl, urlArr.length - 1, 3)
+  //   }
+  //  let prevImage = prevUrl.url || noImgUrl;   
 
       return (
         <div id='outer-box'>
@@ -65,17 +59,17 @@ const ViewSpot = ({noImgUrl}) => {
          
             <div className='grid-container'>
 
-                    {/* {spotImages?.map((image) => (
+                    {spotImages?.map((image) => (
                         image.preview === true 
                         ? <img id='preview' src={image.url} alt={spot.name} key={image.id}></img>
                         : <img key={image.id} src={image.url} alt={spot.name}></img>
-                    ))} */}
+                    ))}
 
-            <img id='preview' src={prevImage} alt={spot.name}></img>
+            {/* <img id='preview' src={prevImage} alt={spot.name}></img>
             {urlArr.map(image => (
               <img src={image} alt={spot.name}></img>
             ))}
-{/* 
+
             <img src={image1} alt={spot.name}></img>
             <img src={image2} alt={spot.name}></img>
             <img src={image3} alt={spot.name}></img>
@@ -83,7 +77,7 @@ const ViewSpot = ({noImgUrl}) => {
           </div>
           
 
-
+            {console.log(noImgUrl)}
 
            <div className='reserve'>
             <p className='price'><span>${spot.price}</span> night</p>

@@ -5,7 +5,7 @@ import { useHistory } from 'react-router-dom';
 import './SpotForm.css';
 import noImgUrl from '../../images/NoImage.png';
 
-const SpotForm = () => {
+const UpdateSpotForm = () => {
     const history = useHistory();
     const dispatch = useDispatch();
     const user = useSelector(state => {
@@ -28,12 +28,9 @@ const SpotForm = () => {
     const [imgurl4, setImgurl4] = useState('');
 
     const [errors, setErrors] = useState({});
-    
-    // let errorLog = {};
 
     useEffect(()=> {
         const errorObj = {};
-        // const urlArray = [prevImg, imgurl1, imgurl2, imgurl3, imgurl4];
         const fileTypes = ['.jpeg', '.png', '.jpg'];
 
         if (!address) errorObj['address'] = 'Address is required' ;
@@ -63,9 +60,8 @@ const SpotForm = () => {
             return imgurl4.endsWith(type)})) && imgurl4.length) {
             errorObj['imgurl4'] = 'Image URL must end in .png, .jpg, or .jpeg';
         } 
-
-
         setErrors(errorObj);
+
     }, [address, city, aState, country, name, description, price, prevImg, imgurl1, imgurl2, imgurl3, imgurl4])
 
     const handleSubmit = async (e) => {
@@ -74,17 +70,15 @@ const SpotForm = () => {
         const errorClass = document.querySelectorAll('.errors');
         errorClass.forEach(one => one.removeAttribute("hidden"));
 
-        console.log('errors!',errors);
-
             let newSpot = {
                 address, city, state: aState, country, lat: 1, lng: 1, name, description, price
             }
 
-                newSpot = await dispatch(createSpot(newSpot))
+                newSpot = await dispatch(updatedSpot(newSpot))
 
             if (!('id' in  newSpot)) {
                 return false
-            }
+            } 
                
                 let newImgPrev = {url: prevImg, preview: true, spotId: newSpot.id};
                 let newImg1 = {url: imgurl1 || noImgUrl, preview: false, spotId: newSpot.id};
@@ -105,7 +99,6 @@ const SpotForm = () => {
                 dispatch(postImage(newImg3));
                 dispatch(postImage(newImg4));
 
-   
                 history.push(`/spots/${newSpot.id}`);
             
     }
@@ -117,7 +110,7 @@ const SpotForm = () => {
         <div className='inner'>
         <form id='display' onSubmit={handleSubmit}>
         <div className='borderBox'>
-        <h1>Create a New Spot</h1>
+        <h1>Update Your Spot</h1>
         <h2>Where's your place located?</h2>
         <p>Guests will only get your exact address once they booked a reservation.</p>
 
@@ -258,7 +251,7 @@ const SpotForm = () => {
             </div>
 
         <div>
-        <input type='submit' id='createButton' value='Create Spot' />
+        <input type='submit' id='createButton' value='Update Spot' />
         </div>
         </form>
         </div></div>
