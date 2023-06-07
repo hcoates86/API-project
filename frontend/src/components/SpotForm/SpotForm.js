@@ -74,40 +74,33 @@ const SpotForm = () => {
         const errorClass = document.querySelectorAll('.errors');
         errorClass.forEach(one => one.removeAttribute("hidden"));
 
-        console.log('errors!',errors);
-
-            let newSpot = {
+            let spot = {
                 address, city, state: aState, country, lat: 1, lng: 1, name, description, price
             }
 
-                newSpot = await dispatch(createSpot(newSpot))
-
-            if (!('id' in  newSpot)) {
-                return false
-            }
-               
+            const newSpot = await dispatch(createSpot(spot))
+            console.log('new Spot', newSpot);
+            if ('id' in  newSpot) {
                 let newImgPrev = {url: prevImg, preview: true, spotId: newSpot.id};
                 let newImg1 = {url: imgurl1 || noImgUrl, preview: false, spotId: newSpot.id};
                 let newImg2 = {url: imgurl2 || noImgUrl, preview: false, spotId: newSpot.id};
                 let newImg3 = {url: imgurl3 || noImgUrl, preview: false, spotId: newSpot.id}; 
                 let newImg4 = {url: imgurl4 || noImgUrl, preview: false, spotId: newSpot.id};
 
-                
                 newSpot.Owner = {
                     id: user.id,
                     firstName: user.firstName,
                     lastName: user.lastName
                 }
-                
+                console.log(newImg1);
                 dispatch(postImage(newImgPrev));
                 dispatch(postImage(newImg1));
                 dispatch(postImage(newImg2));
                 dispatch(postImage(newImg3));
                 dispatch(postImage(newImg4));
-
    
                 history.push(`/spots/${newSpot.id}`);
-            
+             }
     }
 
 

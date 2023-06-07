@@ -25,7 +25,7 @@ const ViewSpot = () => {
 
     const alertP = () => alert('Feature Coming Soon...');
 
-    if (!spot || !spot.SpotImages) return;
+    if (!spot || !spot.SpotImages || !spot.Owner) return;
 
     const spotImages = spot.SpotImages;
     

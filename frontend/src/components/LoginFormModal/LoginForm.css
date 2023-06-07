@@ -30,10 +30,13 @@
   border: solid black 2px;
   width: 350px;
   box-shadow: 4px 4px 0px black;
-  background-color: salmon;
-  color: white;
   margin: 15px;
   cursor: pointer;
+}
+
+.login-color {
+  background-color: salmon;
+  color: white;
 }
 
 #demo {
@@ -46,6 +49,6 @@
   background-color: blue;
 }
 
-#login-h1, #demo {
+#demo {
   margin: 0;
 }

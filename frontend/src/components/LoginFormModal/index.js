@@ -12,6 +12,7 @@ function LoginFormModal() {
   const [errors, setErrors] = useState({});
   const { closeModal } = useModal();
   const [disabled, setDisabled] = useState(true);
+  const [color, setColor] = useState('')
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -20,13 +21,14 @@ function LoginFormModal() {
       .then(closeModal)
       .catch(async (res) => {
         const data = await res.json();
+        console.log(data); //test
         if (data && data.errors) {
           setErrors(data.errors);
           const login = {login: "The provided credentials were invalid"}
           setErrors(login)
-          console.log(errors);//test
         }
       });
+      
   };
 
   const loginDemo = () => {
@@ -40,18 +42,20 @@ function LoginFormModal() {
     if (password.length < 6) errorObj['password'] = "Password must be at least 6 characters long";
     setErrors(errorObj)
     if (credential.length >= 4 && password.length >=6 ) setDisabled(false);
+    if (credential.length < 4 || password.length < 6 ) setDisabled(true);
   }, [credential, password])
 
   useEffect(() => {
-    
-    if (disabled) 
-  })
+    if (!disabled) setColor('login-color');
+    if (disabled) setColor('');
+  }, [disabled])
 
 
   return (
     <div className="login-outer-box">
     <div className="login-box">
       <h1 id='login-h1'>Log In</h1>
+
       <p className="errors highlight">{errors.login}</p>
       <form onSubmit={handleSubmit}>
         <label >
@@ -74,11 +78,13 @@ function LoginFormModal() {
             required
           />
         </label>
-        {errors.credential && (
+        
+        {/* {errors.credential && (
           <p>{errors.credential}</p>
-        )}
+        )} */}
         <button type="submit"
                 id="login-button"
+                className={color}
                 disabled={disabled}
         >Log In</button>
       </form>

@@ -12,6 +12,14 @@ const UpdateSpotForm = () => {
         return state.session.user
      })
 
+         //     const spot = useSelector((state) => {
+    //    return state.spots.singleSpot;
+    // })  
+
+    // useEffect(() => {
+    //     dispatch(updatedSpot(spot));
+    //   }, [dispatch, spot]);
+
     const [address, setAddress] = useState('');
     const [city, setCity] = useState('');
     const [aState, setAState] = useState('');

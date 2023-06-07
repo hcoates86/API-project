@@ -89,11 +89,14 @@ export const createSpot = (spot) => async (dispatch) => {
 }
 
 export const postImage = (image) => async (dispatch) => {
-    const res = await csrfFetch(`/api/${image.spotId}/images`, {
+    const { url, preview, spotId } = image;
+    const res = await csrfFetch(`/api/${spotId}/images`, {
         method: 'POST',
-        body: JSON.stringify(image)
+        body: JSON.stringify({
+            url,
+            preview
+        })
     });
-
 
     if (res.ok) {
         const newImage = await res.json();
@@ -167,10 +170,10 @@ const spotReducer = (state = initialState, action) => {
             newState = {...state}
             newState.allSpots[action.spot.id] = action.spot;
             return newState;
-        // case DELETE_SPOT:
-        //     newState = {...state};
-        //     delete newState.allSpots[action.spotId];
-        //     return newState;
+        case DELETE_SPOT:
+            newState = {...state};
+            delete newState.allSpots[action.spotId];
+            return newState;
      default:
         return state;
       }

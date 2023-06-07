@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { getUserSpots } from '../../store/session';
+import {removeSpot } from '../../store/spots';
 import SpotsIndexItem from './SpotsIndexItem';
 
 
@@ -9,21 +10,20 @@ const ManageSpots = () => {
 
     const dispatch = useDispatch();
 
-    const spots = useSelector(state => {
+    useEffect(() => {
+    dispatch(getUserSpots())
+    }, [dispatch]);
+
+    let spots = useSelector(state => {
         return state.user.spots
     })
 
-    useEffect(() => {
-        dispatch(getUserSpots())
-      }, [dispatch]);
+    if (!spots) spots = [];
+    console.log(spots);
 
-    //     const spot = useSelector((state) => {
-    //    return state.spots.singleSpot;
-    // })  
-
-    // useEffect(() => {
-    //     dispatch(updatedSpot(spot));
-    //   }, [dispatch, spot]);
+    const deleteSpot = (spotId) => {
+        dispatch(removeSpot(spotId))
+    } 
 
 
     return (
@@ -31,12 +31,12 @@ const ManageSpots = () => {
             <h1>Manage Spots</h1>
             <Link to='/spots/new'>Create a New Spot</Link>
 
-
+            
             {spots.map((spot) => (
                 <>
                 <SpotsIndexItem spot={spot} key={spot.id}/>
-                <Link to='/'><button>Update</button></Link>
-                <Link to={`/spots/${spot.id}`}><button>Delete</button></Link>
+                <Link to={`/user/spots/${spot.id}`}><button>Update</button></Link>
+                <button onClick={deleteSpot(spot.id)}>Delete</button>
                 </>
             ))}
 
