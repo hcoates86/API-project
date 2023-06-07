@@ -3,15 +3,16 @@ import './Spots.css';
 import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchSpot } from '../../store/spots';
-import { useEffect } from 'react';
-import noImgUrl from '../../images/NoImage.png';
+import { useEffect, useState } from 'react';
 
 
 const ViewSpot = () => {
     const { spotId } = useParams();
-    
-
     const dispatch = useDispatch();
+    const [thisUser, setThisUser] = useState(false);
+    const [reviewExists, setReviewExists] = useState(false);
+
+    const alertP = () => alert('Feature Coming Soon...');
 
     useEffect(() => {
         dispatch(fetchSpot(spotId));
@@ -21,13 +22,15 @@ const ViewSpot = () => {
     return state.spots.singleSpot;
     })
 
-    //put a useeffect to check empty spots on grid and fill them with no img ORR do that with CSS??
-
-    const alertP = () => alert('Feature Coming Soon...');
+    const user = useSelector((state) => {
+      return state.session.user || null
+    })
 
     if (!spot || !spot.SpotImages || !spot.Owner) return;
 
     const spotImages = spot.SpotImages;
+
+    if (spot.ownerId === user.id) setThisUser(true);
     
     let avgStarS;
     let numReviewsS = "Reviews";
@@ -38,21 +41,8 @@ const ViewSpot = () => {
 
     if (spot.numReviews === +1) numReviewsS = "Review";
     
-    
-    // let imgArr = [...spotImages];
-    // let prevImage;
-    // let prevUrl = spot.SpotImages.filter(image => image.preview === true)[0];
-
-    // let urlArr = spot.SpotImages.map(image => image.url)
-
-
-
-  //   if (urlArr.length < 4) {
-  //     urlArr.fill(noImgUrl, urlArr.length - 1, 3)
-  //   }
-  //  let prevImage = prevUrl.url || noImgUrl;   
-
       return (
+        <>
         <div id='outer-box'>
           <h1>{spot.name}</h1>
           <h3>{spot.city}, {spot.state}, {spot.country}</h3>
@@ -65,20 +55,8 @@ const ViewSpot = () => {
                         : <img key={image.id} src={image.url} alt={spot.name}></img>
                     ))}
 
-            {/* <img id='preview' src={prevImage} alt={spot.name}></img>
-            {urlArr.map(image => (
-              <img src={image} alt={spot.name}></img>
-            ))}
-
-            <img src={image1} alt={spot.name}></img>
-            <img src={image2} alt={spot.name}></img>
-            <img src={image3} alt={spot.name}></img>
-            <img src={image4} alt={spot.name}></img> */}
           </div>
           
-
-            {console.log(noImgUrl)}
-
            <div className='reserve'>
             <p className='price'><span>${spot.price}</span> night</p>
             <p className='res-reviews'><span id="star">★</span>{avgStarS} &#183; {spot.numReviews} {numReviewsS}</p>
@@ -90,8 +68,15 @@ const ViewSpot = () => {
             <p>{spot.description}</p>
             </div>
         </div>
+        <div id='review-box'>
+          <h1><span id="star2">★</span> {avgStarS} &#183; {spot.numReviews} {numReviewsS}</h1>
+          <div>       
+            <button onClick={openSesame}>Post Your Review</button>
+            <p>Be the first to post a review!</p>
+          </div>
 
-        
+        </div>
+        </>
       )
 }
 

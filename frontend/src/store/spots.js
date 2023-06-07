@@ -90,7 +90,7 @@ export const createSpot = (spot) => async (dispatch) => {
 
 export const postImage = (image) => async (dispatch) => {
     const { url, preview, spotId } = image;
-    const res = await csrfFetch(`/api/${spotId}/images`, {
+    const res = await csrfFetch(`/api/spots/${spotId}/images`, {
         method: 'POST',
         body: JSON.stringify({
             url,

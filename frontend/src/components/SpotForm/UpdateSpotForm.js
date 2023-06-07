@@ -36,9 +36,12 @@ const UpdateSpotForm = () => {
     const [imgurl4, setImgurl4] = useState('');
 
     const [errors, setErrors] = useState({});
+    
+    // let errorLog = {};
 
     useEffect(()=> {
         const errorObj = {};
+        // const urlArray = [prevImg, imgurl1, imgurl2, imgurl3, imgurl4];
         const fileTypes = ['.jpeg', '.png', '.jpg'];
 
         if (!address) errorObj['address'] = 'Address is required' ;
@@ -50,13 +53,13 @@ const UpdateSpotForm = () => {
         if (!description) errorObj['description'] = 'Description is required';
         if (!description > 30) errorObj['description'] = 'Description needs 30 or more characters';
         if (!price) errorObj['price'] = 'Price per night is required';
-        if (!prevImg) errorObj['prevImg'] = 'Preview image is required';
-
+        
 
         if (!(fileTypes.some(type => {
             return prevImg.endsWith(type)}))) {
             errorObj['prevImg'] = 'Image URL must end in .png, .jpg, or .jpeg';
-        } if (!(fileTypes.some(type => {return imgurl1.endsWith(type)})) && imgurl1.length) {
+        } if (!prevImg) errorObj['prevImg'] = 'Preview image is required';
+        if (!(fileTypes.some(type => {return imgurl1.endsWith(type)})) && imgurl1.length) {
             errorObj['imgurl1'] = 'Image URL must end in .png, .jpg, or .jpeg';
         } if (!(fileTypes.some(type => {
             return imgurl2.endsWith(type)})) && imgurl2.length) {
@@ -68,8 +71,9 @@ const UpdateSpotForm = () => {
             return imgurl4.endsWith(type)})) && imgurl4.length) {
             errorObj['imgurl4'] = 'Image URL must end in .png, .jpg, or .jpeg';
         } 
-        setErrors(errorObj);
 
+
+        setErrors(errorObj);
     }, [address, city, aState, country, name, description, price, prevImg, imgurl1, imgurl2, imgurl3, imgurl4])
 
     const handleSubmit = async (e) => {
@@ -78,37 +82,34 @@ const UpdateSpotForm = () => {
         const errorClass = document.querySelectorAll('.errors');
         errorClass.forEach(one => one.removeAttribute("hidden"));
 
-            let newSpot = {
+            let spot = {
                 address, city, state: aState, country, lat: 1, lng: 1, name, description, price
             }
 
-                newSpot = await dispatch(updatedSpot(newSpot))
-
-            if (!('id' in  newSpot)) {
-                return false
-            } 
-               
+            const newSpot = await dispatch(createSpot(spot))
+            console.log('new Spot', newSpot);
+            if ('id' in  newSpot) {
                 let newImgPrev = {url: prevImg, preview: true, spotId: newSpot.id};
                 let newImg1 = {url: imgurl1 || noImgUrl, preview: false, spotId: newSpot.id};
                 let newImg2 = {url: imgurl2 || noImgUrl, preview: false, spotId: newSpot.id};
                 let newImg3 = {url: imgurl3 || noImgUrl, preview: false, spotId: newSpot.id}; 
                 let newImg4 = {url: imgurl4 || noImgUrl, preview: false, spotId: newSpot.id};
 
-                
                 newSpot.Owner = {
                     id: user.id,
                     firstName: user.firstName,
                     lastName: user.lastName
                 }
-                
+
+                console.log(newImg1);
                 dispatch(postImage(newImgPrev));
                 dispatch(postImage(newImg1));
                 dispatch(postImage(newImg2));
                 dispatch(postImage(newImg3));
                 dispatch(postImage(newImg4));
-
+   
                 history.push(`/spots/${newSpot.id}`);
-            
+             }
     }
 
 
@@ -118,11 +119,11 @@ const UpdateSpotForm = () => {
         <div className='inner'>
         <form id='display' onSubmit={handleSubmit}>
         <div className='borderBox'>
-        <h1>Update Your Spot</h1>
+        <h1>Create a New Spot</h1>
         <h2>Where's your place located?</h2>
         <p>Guests will only get your exact address once they booked a reservation.</p>
 
-        <label>Country
+        <label>Country <span className='errors' hidden>{errors.country}</span>
         <div id='country'>
             <input type='text' className='txtInput' 
                 value={country}
@@ -131,9 +132,8 @@ const UpdateSpotForm = () => {
                 />
         </div>
         </label>
-        <p className='errors' hidden>{errors.country}</p>
 
-        <label>Address
+        <label>Address <span className='errors' hidden>{errors.address}</span>
         <div id='address'>
             <input type='text' className='txtInput' 
                 value={address}
@@ -141,11 +141,10 @@ const UpdateSpotForm = () => {
                 placeholder='address' />
         </div>
         </label>
-        <p className='errors' hidden>{errors.address}</p>
 
     <div className='city-state'>
         <div id='city'>
-            <label>City
+            <label>City <span className='errors' hidden>{errors.city}</span>
             
                 <input type='text' className='txtInput' 
                     value={city}
@@ -153,9 +152,8 @@ const UpdateSpotForm = () => {
                     placeholder='city' />
             
             </label></div>
-            <p className='errors' hidden>{errors.city}</p>
             <div id='state'>
-            <label>State
+            <label>State <span className='errors' hidden>{errors.state}</span>
             
                 <input type='text' className='txtInput' 
                     value={aState}
@@ -163,7 +161,6 @@ const UpdateSpotForm = () => {
                     placeholder='STATE' />
             
             </label></div>
-            <p className='errors' hidden>{errors.state}</p>
     </div>
 
 
@@ -259,7 +256,7 @@ const UpdateSpotForm = () => {
             </div>
 
         <div>
-        <input type='submit' id='createButton' value='Update Spot' />
+        <input type='submit' id='createButton' value='Create Spot' />
         </div>
         </form>
         </div></div>
@@ -267,4 +264,4 @@ const UpdateSpotForm = () => {
     )
 }
 
-export default SpotForm;
+export default UpdateSpotForm;

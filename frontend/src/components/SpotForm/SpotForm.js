@@ -45,13 +45,14 @@ const SpotForm = () => {
         if (!description) errorObj['description'] = 'Description is required';
         if (!description > 30) errorObj['description'] = 'Description needs 30 or more characters';
         if (!price) errorObj['price'] = 'Price per night is required';
-        if (!prevImg) errorObj['prevImg'] = 'Preview image is required';
+        
 
 
         if (!(fileTypes.some(type => {
             return prevImg.endsWith(type)}))) {
             errorObj['prevImg'] = 'Image URL must end in .png, .jpg, or .jpeg';
-        } if (!(fileTypes.some(type => {return imgurl1.endsWith(type)})) && imgurl1.length) {
+        } if (!prevImg) errorObj['prevImg'] = 'Preview image is required';
+        if (!(fileTypes.some(type => {return imgurl1.endsWith(type)})) && imgurl1.length) {
             errorObj['imgurl1'] = 'Image URL must end in .png, .jpg, or .jpeg';
         } if (!(fileTypes.some(type => {
             return imgurl2.endsWith(type)})) && imgurl2.length) {
@@ -92,6 +93,7 @@ const SpotForm = () => {
                     firstName: user.firstName,
                     lastName: user.lastName
                 }
+
                 console.log(newImg1);
                 dispatch(postImage(newImgPrev));
                 dispatch(postImage(newImg1));
