@@ -3,34 +3,60 @@ import './Spots.css';
 import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchSpot } from '../../store/spots';
+import { getUserReviews, getSpotReviews } from '../../store/reviews';
 import { useEffect, useState } from 'react';
 
 
 const ViewSpot = () => {
     const { spotId } = useParams();
     const dispatch = useDispatch();
+    //check if user owns this spot
     const [thisUser, setThisUser] = useState(false);
+    //check if user's already left a review here
     const [reviewExists, setReviewExists] = useState(false);
 
     const alertP = () => alert('Feature Coming Soon...');
 
     useEffect(() => {
-        dispatch(fetchSpot(spotId));
-      }, [dispatch, spotId]);
+      dispatch(fetchSpot(spotId));
+      dispatch(getSpotReviews(spotId));
+      dispatch(getUserReviews());
+    }, [dispatch, spotId])
 
     const spot = useSelector((state) => {
     return state.spots.singleSpot;
     })
 
     const user = useSelector((state) => {
-      return state.session.user || null
+      return state.session.user
     })
 
-    if (!spot || !spot.SpotImages || !spot.Owner) return;
+    const reviews = Object.values(
+      useSelector((state) => (
+        state.reviews.spot ? state.reviews.spot : []
+        ))
+    )
+
+    const userReviews = Object.values(useSelector((state) => (
+      state.reviews.user ? state.reviews.user : []
+      ))
+    )
+
+    useEffect(()=> {
+      if (user && spot && spot.ownerId === user.id) {
+        setThisUser(true)
+      } else setThisUser(false)
+    }, [user, spot])
+
+    if (!spot || !spot.SpotImages || !spot.Owner) return null;
+    // if (!user) return null;
+    if (!reviews) return null;
 
     const spotImages = spot.SpotImages;
 
-    if (spot.ownerId === user.id) setThisUser(true);
+
+    
+    // const userHasReview = userReviews.filter(review => review.userId === user.id)
     
     let avgStarS;
     let numReviewsS = "Reviews";
@@ -70,11 +96,20 @@ const ViewSpot = () => {
         </div>
         <div id='review-box'>
           <h1><span id="star2">★</span> {avgStarS} &#183; {spot.numReviews} {numReviewsS}</h1>
+          {thisUser ? (
+            <></>
+          ) : (
           <div>       
-            <button onClick={openSesame}>Post Your Review</button>
+            <button>Post Your Review</button>
             <p>Be the first to post a review!</p>
           </div>
-
+          )}
+          
+          {reviews.map(review => (
+            <div key={review.id}>
+            <h2>{review.User.firstName}</h2>
+            </div>
+          ))}
         </div>
         </>
       )

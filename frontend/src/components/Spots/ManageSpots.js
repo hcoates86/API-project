@@ -1,8 +1,8 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { getUserSpots } from '../../store/session';
-import {removeSpot } from '../../store/spots';
+import { removeSpot, getUserSpots } from '../../store/spots';
+import { getUserReviews, getSpotReviews } from '../../store/reviews';
 import SpotsIndexItem from './SpotsIndexItem';
 
 
@@ -14,9 +14,11 @@ const ManageSpots = () => {
     dispatch(getUserSpots())
     }, [dispatch]);
 
-    let spots = useSelector(state => {
-        return state.user.spots
-    })
+    let spots = Object.values(
+        useSelector(state => (
+        state.spots.user ? state.spots.user : []
+        ))
+    )
 
     if (!spots) spots = [];
     console.log(spots);
@@ -24,6 +26,7 @@ const ManageSpots = () => {
     const deleteSpot = (spotId) => {
         dispatch(removeSpot(spotId))
     } 
+
 
 
     return (

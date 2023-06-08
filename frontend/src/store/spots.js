@@ -6,6 +6,7 @@ const MAKE_SPOT = 'spots/makeSpot';
 const UPDATE_SPOT ='spots/updateSpot';
 const DELETE_SPOT ='spots/deleteSpot';
 const ADD_IMAGE = 'spots/addImage';
+const USER_SPOTS = 'spots/userSpots';
 
 const getAllSpots = (spots) => {
     return {
@@ -49,6 +50,12 @@ const addImage = (image) => {
     }
 }
 
+const userSpots = (spots) => {
+    return {
+        type: USER_SPOTS,
+        spots
+    }
+}
 
 
 export const getSpots = () => async (dispatch) => {
@@ -136,11 +143,21 @@ export const removeSpot = (spotId) => async (dispatch) => {
     }
 }
 
+export const getUserSpots = () => async (dispatch) => {
+    const res = await csrfFetch('/api/session/spots');
+    if (res.ok) {
+        const spots = await res.json()
+        dispatch(userSpots(spots))
+    } else {
+        const errors = await res.json();
+        return errors;
+    }
+}
 
 
 
 
-const initialState = {allSpots:{}, singleSpot: { SpotImages: []}}
+const initialState = {allSpots:{}, singleSpot: { SpotImages: []}, user: {}}
 
 
 const spotReducer = (state = initialState, action) => {
@@ -158,7 +175,6 @@ const spotReducer = (state = initialState, action) => {
             return newState;
         case MAKE_SPOT:
             newState = {...state}
-            // newState.allSpots[action.spot.id] = action.spot;
             newState.singleSpot = action.spot;
             return newState;
         case ADD_IMAGE:
@@ -169,10 +185,19 @@ const spotReducer = (state = initialState, action) => {
         case UPDATE_SPOT:
             newState = {...state}
             newState.allSpots[action.spot.id] = action.spot;
+            // let oldState = {...state};
+            //spread?
             return newState;
         case DELETE_SPOT:
             newState = {...state};
             delete newState.allSpots[action.spotId];
+            return newState;
+        case USER_SPOTS:
+            newState = {...state};
+            if (action.spots.Spots.length) {
+                action.spots.Spots.forEach(spot => {
+                    newState.user[spot.id] = spot;
+            })} else newState.user = null
             return newState;
      default:
         return state;

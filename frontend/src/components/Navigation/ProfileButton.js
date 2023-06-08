@@ -4,8 +4,7 @@ import * as sessionActions from '../../store/session';
 import OpenModalMenuItem from './OpenModalMenuItem';
 import LoginFormModal from '../LoginFormModal';
 import SignupFormModal from '../SignupFormModal';
-import { useHistory } from 'react-router-dom';
-
+import { useHistory, Link } from 'react-router-dom';
 
 function ProfileButton({ user }) {
   const dispatch = useDispatch();
@@ -58,6 +57,8 @@ function ProfileButton({ user }) {
           <>
             <li>Hello, {user.username}</li>
             <li>{user.email}</li>
+            <li><Link to='/user/spots'>Manage Spots</Link></li>
+            <li><Link to='/'>Manage Reviews</Link></li>
             <li>
               <button onClick={logout}>Log Out</button>
             </li>

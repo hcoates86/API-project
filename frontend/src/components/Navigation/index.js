@@ -21,10 +21,8 @@ function Navigation({ isLoaded }){
      
       {isLoaded && (
         <>
-         <li className='right-nav'>
-        <NavLink exact to="/spots/new">Create a New Spot</NavLink>
-        </li>
         <li className='right-nav'>
+        <NavLink exact to="/spots/new">Create a New Spot</NavLink>
           <ProfileButton user={sessionUser} />
         </li>  
         </>   

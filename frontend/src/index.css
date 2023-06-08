@@ -6,3 +6,11 @@ h1, h2, h3 {
 .errors {
     color: red
   }
+
+  .hidden {
+    display: none;
+  }
+
+  .modal-input {
+    background-color: lightblue;
+  }

@@ -99,10 +99,10 @@ export const login = (user) => async (dispatch) => {
         newState = Object.assign({}, state);
         newState.user = null;
         return newState;
-      case USER_SPOTS:
-        newState = {...state}
-        newState.user.spots = action.spots
-        return newState;
+      // case USER_SPOTS:
+      //   newState = {...state}
+      //   newState.user.spots = action.spots
+      //   return newState;
       default:
         return state;
     }
