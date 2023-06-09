@@ -100,11 +100,11 @@ router.get('/:spotId/reviews', findSpot, async (req, res, next) => {
   const spot = await Spot.findByPk(req.params.spotId);
   const reviews = await spot.getReviews({raw: true});
   let arr = [];
-  if (!reviews || !reviews.length) arr = 'New' 
+  if (!reviews || !reviews.length) arr = null; 
   for (let review of reviews) {
     const currReview = await Review.findByPk(review.id);
     let rImages = await currReview.getReviewImages({attributes: ['id', 'url']});
-    if (!rImages || !rImages.length) rImages = 'No review images';
+    if (!rImages || !rImages.length) rImages = null;
 
     review.User = await User.findByPk(review.userId, {attributes: ['id', 'firstName', 'lastName']});
     review.ReviewImages = rImages;

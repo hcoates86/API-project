@@ -14,12 +14,15 @@ const ViewSpot = () => {
     const [thisUser, setThisUser] = useState(false);
     //check if user's already left a review here
     const [reviewExists, setReviewExists] = useState(false);
+    //sets number of reviews -- 0 for 0, 1 for 1, 2 for more than 1
+    const [reviewNumber, setReviewNumber] = useState(0);
+    const [numReviewsS, setNumReviewsS] = useState('Reviews');
 
     const alertP = () => alert('Feature Coming Soon...');
 
     useEffect(() => {
       dispatch(fetchSpot(spotId));
-      dispatch(getSpotReviews(spotId));
+      dispatch(getSpotReviews(spotId)); //might have to place in own useeffect to see review changes on post
       dispatch(getUserReviews());
     }, [dispatch, spotId])
 
@@ -42,11 +45,32 @@ const ViewSpot = () => {
       ))
     )
 
+
+    useEffect(() => {
+      if (spot) {
+        if (spot.numReviews === +1) setReviewNumber(1);
+        if (spot.numReviews === +0) setReviewNumber(0);
+        if (spot.numReviews > +1) setReviewNumber(2);
+      }
+      if (reviewNumber === 1) setNumReviewsS("Review");
+      if (reviewNumber !== 1) setNumReviewsS("Reviews");
+
+    }, [reviewNumber, spot])
+
+    useEffect(() => {
+      if (user && userReviews.filter(review => review.userId === user.id)) setReviewExists(true);
+      else setReviewExists(false);
+    }, [userReviews, user])
+
+    useEffect(() => {
+
+    })
+
     useEffect(()=> {
       if (user && spot && spot.ownerId === user.id) {
         setThisUser(true)
       } else setThisUser(false)
-    }, [user, spot])
+    }, [user, spot, thisUser])
 
     if (!spot || !spot.SpotImages || !spot.Owner) return null;
     // if (!user) return null;
@@ -54,18 +78,14 @@ const ViewSpot = () => {
 
     const spotImages = spot.SpotImages;
 
-
-    
-    // const userHasReview = userReviews.filter(review => review.userId === user.id)
     
     let avgStarS;
-    let numReviewsS = "Reviews";
-
+  
+    //useeffect this?
     if (!spot.avgStarRating) {
         avgStarS = "New"
     } else avgStarS = spot.avgStarRating.toFixed(1)
 
-    if (spot.numReviews === +1) numReviewsS = "Review";
     
       return (
         <>
@@ -96,13 +116,20 @@ const ViewSpot = () => {
         </div>
         <div id='review-box'>
           <h1><span id="star2">★</span> {avgStarS} &#183; {spot.numReviews} {numReviewsS}</h1>
-          {thisUser ? (
+          {thisUser && reviewExists && !user ? (
             <></>
           ) : (
-          <div>       
+          <>       
             <button>Post Your Review</button>
+            
+          </>
+          )}
+
+          {reviewNumber ? (<></>)
+          : (
+            <>
             <p>Be the first to post a review!</p>
-          </div>
+            </>
           )}
           
           {reviews.map(review => (

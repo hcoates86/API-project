@@ -20,7 +20,7 @@ const ManageSpots = () => {
         ))
     )
 
-    if (!spots) spots = [];
+    if (!spots) return null;
     console.log(spots);
 
     const deleteSpot = (spotId) => {

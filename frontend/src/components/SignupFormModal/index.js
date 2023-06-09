@@ -34,6 +34,8 @@ function SignupFormModal() {
     if (password !== confirmPassword) errorObj['confirmPassword'] = 'Passwords must match';
     if (password.length < 6) errorObj['password'] = "Password must be at least 6 characters long"
     setErrors(errorObj)
+    if (!Object.values(errorObj).length) setDisabled(false);
+    if (Object.values(errorObj).length) setDisabled(true);
     }, [username, email, firstName, lastName, password, confirmPassword])
 
 
