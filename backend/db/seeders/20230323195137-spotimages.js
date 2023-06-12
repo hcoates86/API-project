@@ -87,7 +87,118 @@ module.exports = {
         spotId: 9,
         url: 'https://www.lawnstarter.com/blog/wp-content/uploads/2020/10/lattice-fence-top-flickr-ccbysa2.jpg',
         preview: true
-      }
+      },
+      {
+        spotId: 1,
+        url: 'https://i.ibb.co/vvBssvb/NoImage.png',
+        preview: false
+      },
+      {
+        spotId: 1,
+        url: 'https://i.ibb.co/vvBssvb/NoImage.png',
+        preview: false
+      },
+      {
+        spotId: 1,
+        url: 'https://i.ibb.co/vvBssvb/NoImage.png',
+        preview: false
+      },
+      {
+        spotId: 10,
+        url: 'https://i.ibb.co/vvBssvb/NoImage.png',
+        preview: false
+      },
+      {
+        spotId: 10,
+        url: 'https://i.ibb.co/vvBssvb/NoImage.png',
+        preview: false
+      },
+      {
+        spotId: 10,
+        url: 'https://i.ibb.co/vvBssvb/NoImage.png',
+        preview: false
+      },
+      {
+        spotId: 8,
+        url: 'https://i.ibb.co/vvBssvb/NoImage.png',
+        preview: false
+      },
+      {
+        spotId: 8,
+        url: 'https://i.ibb.co/vvBssvb/NoImage.png',
+        preview: false
+      },
+      {
+        spotId: 3,
+        url: 'https://i.ibb.co/vvBssvb/NoImage.png',
+        preview: false
+      },
+      {
+        spotId: 3,
+        url: 'https://i.ibb.co/vvBssvb/NoImage.png',
+        preview: false
+      },
+      {
+        spotId: 3,
+        url: 'https://i.ibb.co/vvBssvb/NoImage.png',
+        preview: false
+      },
+      {
+        spotId: 2,
+        url: 'https://i.ibb.co/vvBssvb/NoImage.png',
+        preview: false
+      },
+      {
+        spotId: 2,
+        url: 'https://i.ibb.co/vvBssvb/NoImage.png',
+        preview: false
+      },
+      {
+        spotId: 2,
+        url: 'https://i.ibb.co/vvBssvb/NoImage.png',
+        preview: false
+      },
+      {
+        spotId: 5,
+        url: 'https://i.ibb.co/vvBssvb/NoImage.png',
+        preview: false
+      },
+      {
+        spotId: 5,
+        url: 'https://i.ibb.co/vvBssvb/NoImage.png',
+        preview: false
+      },
+      {
+        spotId: 5,
+        url: 'https://i.ibb.co/vvBssvb/NoImage.png',
+        preview: false
+      },
+      {
+        spotId: 5,
+        url: 'https://i.ibb.co/vvBssvb/NoImage.png',
+        preview: false
+      },
+      {
+        spotId: 7,
+        url: 'https://i.ibb.co/vvBssvb/NoImage.png',
+        preview: false
+      },
+      {
+        spotId: 7,
+        url: 'https://i.ibb.co/vvBssvb/NoImage.png',
+        preview: false
+      },
+      {
+        spotId: 7,
+        url: 'https://i.ibb.co/vvBssvb/NoImage.png',
+        preview: false
+      },
+      {
+        spotId: 7,
+        url: 'https://i.ibb.co/vvBssvb/NoImage.png',
+        preview: false
+      },
+      
     ], {})
   },
 

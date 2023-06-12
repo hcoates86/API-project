@@ -48,8 +48,8 @@ function ProfileButton({ user }) {
     <>
       <button onClick={openMenu}>
       <i className="fa-solid fa-bars fa-2x" />
-      </button>
-      <button onClick={openMenu}>
+      {/* </button>
+      <button onClick={openMenu}> */}
         <i className="fas fa-user-circle fa-2x" />
       </button>
       <ul className={ulClassName} ref={ulRef}>
@@ -58,7 +58,7 @@ function ProfileButton({ user }) {
             <li>Hello, {user.username}</li>
             <li>{user.email}</li>
             <li><Link to='/user/spots'>Manage Spots</Link></li>
-            <li><Link to='/'>Manage Reviews</Link></li>
+            <li><Link to='/user/reviews'>Manage Reviews</Link></li>
             <li>
               <button onClick={logout}>Log Out</button>
             </li>

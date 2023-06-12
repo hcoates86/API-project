@@ -110,7 +110,7 @@ function SignupFormModal() {
         <label>
           <input className='signup-input'
             placeholder="Username"
-            type="text"
+            type="email"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
             required

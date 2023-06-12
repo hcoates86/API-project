@@ -1,6 +1,6 @@
 // import { Link } from 'react-router-dom';
 import './Spots.css';
-import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
+import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchSpot } from '../../store/spots';
 import { getUserReviews, getSpotReviews } from '../../store/reviews';

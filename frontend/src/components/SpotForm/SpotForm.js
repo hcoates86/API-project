@@ -44,9 +44,7 @@ const SpotForm = () => {
         if (name.length > 50) errorObj['name'] = "Name can't be more than 50 characters long";
         if (!description) errorObj['description'] = 'Description is required';
         if (!description > 30) errorObj['description'] = 'Description needs 30 or more characters';
-        if (!price) errorObj['price'] = 'Price per night is required';
-        
-
+        if (!price) errorObj['price'] = 'Price per night is required';       
 
         if (!(fileTypes.some(type => {
             return prevImg.endsWith(type)}))) {
@@ -80,7 +78,6 @@ const SpotForm = () => {
             }
 
             const newSpot = await dispatch(createSpot(spot))
-            console.log('new Spot', newSpot);
             if ('id' in  newSpot) {
                 let newImgPrev = {url: prevImg, preview: true, spotId: newSpot.id};
                 let newImg1 = {url: imgurl1 || noImgUrl, preview: false, spotId: newSpot.id};
@@ -94,7 +91,6 @@ const SpotForm = () => {
                     lastName: user.lastName
                 }
 
-                console.log(newImg1);
                 dispatch(postImage(newImgPrev));
                 dispatch(postImage(newImg1));
                 dispatch(postImage(newImg2));
@@ -220,28 +216,28 @@ const SpotForm = () => {
         <p>Submit a link to at least one photo to publish your spot.</p>
 
 
-        <input type='text' className='txtInput'
+        <input type='url' className='txtInput'
             value={prevImg}
             onChange={(e) => setPrevImg(e.target.value)}
             placeholder='Preview Image URL' />
         <p className='errors' hidden>{errors.prevImg}</p>
 
-            <input type='text' className='txtInput' 
+            <input type='url' className='txtInput' 
                 value={imgurl1}
                 onChange={(e) => setImgurl1(e.target.value)}
                 placeholder='Image URL' />
             <p className='errors' hidden>{errors.imgurl1}</p>
-            <input type='text' className='txtInput' 
+            <input type='url' className='txtInput' 
                 value={imgurl2}
                 onChange={(e) => setImgurl2(e.target.value)}
                 placeholder='Image URL' />
             <p className='errors' hidden>{errors.imgurl2}</p>
-            <input type='text' className='txtInput' 
+            <input type='url' className='txtInput' 
                 value={imgurl3}
                 onChange={(e) => setImgurl3(e.target.value)}
                 placeholder='Image URL' />
             <p className='errors' hidden>{errors.imgurl3}</p>
-            <input type='text' className='txtInput' 
+            <input type='url' className='txtInput' 
                 value={imgurl4}
                 onChange={(e) => setImgurl4(e.target.value)}
                 placeholder='Image URL' />

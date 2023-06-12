@@ -68,19 +68,19 @@ const reviewReducer = (state = initialState, action) => {
     let newState;
     switch (action.type) {
         case SPOT_REVIEWS:
-            newState = {...state};
+            newState = {spot:{}};
             if (action.reviews.Reviews) {
             action.reviews.Reviews.forEach(review => {
                 newState.spot[review.id] = review
             })} else newState.spot = null;
-            return newState;
+            return {...state, ...newState};
         case USER_REVIEWS:
-            newState = {...state};
+            newState = {user:{}};
             if (action.reviews.Reviews) {
                 action.reviews.Reviews.forEach(review => {
                 newState.user[review.id] = review
             })} else newState.user = null;
-            return newState;
+            return {...state, ...newState};
         case DELETE_REVIEW:
             newState = {...state};
             delete newState.spot[action.reviewId];
