@@ -31,9 +31,11 @@ function SignupFormModal() {
     if (!email.includes('@') || !email.includes('.')) errorObj["email"] = "Invalid email";
     if (firstName.length < 1) errorObj['firstName'] = "All fields must be filled out";
     if (lastName.length < 1) errorObj['lastName'] = "All fields must be filled out";
-    if (password !== confirmPassword) errorObj['confirmPassword'] = 'passwords must match';
-    if (password.length < 6) errorObj['password'] = "password must be at least 6 characters long"
+    if (password !== confirmPassword) errorObj['confirmPassword'] = 'Passwords must match';
+    if (password.length < 6) errorObj['password'] = "Password must be at least 6 characters long"
     setErrors(errorObj)
+    if (!Object.values(errorObj).length) setDisabled(false);
+    if (Object.values(errorObj).length) setDisabled(true);
     }, [username, email, firstName, lastName, password, confirmPassword])
 
 
@@ -108,7 +110,7 @@ function SignupFormModal() {
         <label>
           <input className='signup-input'
             placeholder="Username"
-            type="text"
+            type="email"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
             required

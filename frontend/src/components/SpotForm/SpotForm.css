@@ -52,3 +52,12 @@ width: 28%;
   color: white;
   margin: 15px;
 }
+
+.errors {
+  margin: 0;
+  padding: 0;
+}
+
+.txtInput {
+  display: inline-block;
+}

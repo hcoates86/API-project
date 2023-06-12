@@ -6,6 +6,7 @@ const MAKE_SPOT = 'spots/makeSpot';
 const UPDATE_SPOT ='spots/updateSpot';
 const DELETE_SPOT ='spots/deleteSpot';
 const ADD_IMAGE = 'spots/addImage';
+const USER_SPOTS = 'spots/userSpots';
 
 const getAllSpots = (spots) => {
     return {
@@ -49,6 +50,14 @@ const addImage = (image) => {
     }
 }
 
+const userSpots = (spots) => {
+    return {
+        type: USER_SPOTS,
+        spots
+    }
+}
+
+
 export const getSpots = () => async (dispatch) => {
     const res = await csrfFetch('/api/spots');
     if (res.ok) {
@@ -87,15 +96,18 @@ export const createSpot = (spot) => async (dispatch) => {
 }
 
 export const postImage = (image) => async (dispatch) => {
-    const res = await csrfFetch(`/api/${image.spotId}/images`, {
+    const { url, preview, spotId } = image;
+    const res = await csrfFetch(`/api/spots/${spotId}/images`, {
         method: 'POST',
-        body: JSON.stringify(image)
+        body: JSON.stringify({
+            url,
+            preview
+        })
     });
-
 
     if (res.ok) {
         const newImage = await res.json();
-        dispatch(addImage(newImage));
+        dispatch(addImage([newImage]));
         return newImage;
     } else {
         const errors = await res.json();
@@ -131,11 +143,21 @@ export const removeSpot = (spotId) => async (dispatch) => {
     }
 }
 
+export const getUserSpots = () => async (dispatch) => {
+    const res = await csrfFetch('/api/session/spots');
+    if (res.ok) {
+        const spots = await res.json()
+        dispatch(userSpots(spots))
+    } else {
+        const errors = await res.json();
+        return errors;
+    }
+}
 
 
 
 
-const initialState = {allSpots:{}, singleSpot: { SpotImages: []}}
+const initialState = {allSpots:{}, singleSpot: { SpotImages: []}, user: {}}
 
 
 const spotReducer = (state = initialState, action) => {
@@ -146,29 +168,35 @@ const spotReducer = (state = initialState, action) => {
             action.spots.Spots.forEach(spot => {
                 spotsState.allSpots[spot.id] = spot
             })
-            return spotsState
+            return {...state, ...spotsState}
         case VIEW_SPOT:
             newState = {...state};
             newState.singleSpot = action.spot;
             return newState;
         case MAKE_SPOT:
             newState = {...state}
-            // newState.allSpots[action.spot.id] = action.spot;
             newState.singleSpot = action.spot;
             return newState;
         case ADD_IMAGE:
             newState = {...state};
-            const old = newState.singleSpot.SpotImages;
-            newState.singleSpot.SpotImages = [...old, action.image];
+            // const old = newState.singleSpot.SpotImages;
+            newState.singleSpot.SpotImages = [...action.image];
             return newState;
         case UPDATE_SPOT:
             newState = {...state}
             newState.allSpots[action.spot.id] = action.spot;
+            let newState2 = {...state, ...newState}; //test this
+            return newState2;
+        case DELETE_SPOT:
+            newState = {...state};
+            delete newState.allSpots[action.spotId];
             return newState;
-        // case DELETE_SPOT:
-        //     newState = {...state};
-        //     delete newState.allSpots[action.spotId];
-        //     return newState;
+        // case USER_SPOTS:
+        //     newState = {user:{}};
+        //         action.spots.Spots.forEach(spot => {
+        //             newState.user[spot.id] = spot;
+        //     })
+        //     return {...state, ...newState};
      default:
         return state;
       }

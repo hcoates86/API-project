@@ -73,7 +73,7 @@ router.get('/', async (req, res, next) => {
        avgStarRating = Number.parseFloat(avgStarRating).toFixed(1);
     }
     let image = await currSpot.getSpotImages({ attributes: ['url'], where: { preview: true }})
-    if (!image || !image.length) image = 'https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg';
+    if (!image || !image.length) image = 'https://i.ibb.co/jLWm3Cq/NoImage.png';
 
     spot.avgRating = avgStarRating;
     spot.previewImage = image[0].url || image;
@@ -100,11 +100,11 @@ router.get('/:spotId/reviews', findSpot, async (req, res, next) => {
   const spot = await Spot.findByPk(req.params.spotId);
   const reviews = await spot.getReviews({raw: true});
   let arr = [];
-  if (!reviews || !reviews.length) arr = 'New' 
+  if (!reviews || !reviews.length) arr = null; 
   for (let review of reviews) {
     const currReview = await Review.findByPk(review.id);
     let rImages = await currReview.getReviewImages({attributes: ['id', 'url']});
-    if (!rImages || !rImages.length) rImages = 'No review images';
+    if (!rImages || !rImages.length) rImages = null;
 
     review.User = await User.findByPk(review.userId, {attributes: ['id', 'firstName', 'lastName']});
     review.ReviewImages = rImages;

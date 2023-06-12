@@ -1,36 +1,37 @@
 #indexBox {
     display: flex;
     flex-flow: row wrap;
-    justify-content: space-evenly;
-    height: 100%;
-    width: 100%;
+    justify-content: center;
+    margin: 3rem;
 }
   
 #outer-box {
   width: 1000px;
-  margin: 4em;
+  margin: auto;
   border-bottom: black solid 2px;
 }
 
-.previewBox {
-  /*     width: 500px; */
-  /*     box-sizing: content-box; */
-  display: flex;
+.grid-container {
+  display: grid;
+  height: 500px;
+  max-width: 1000px;
+  grid-template-areas:
+    "prev prev a b"
+    "prev prev c d";
+  grid-template-columns: 2fr 1fr 1fr;
 }
 
-#outerImgBox {
-  width: 1000px;
-  display: block;
-  flex-flow: row wrap;
+.grid-container > img {
+  object-fit: cover;
+  width: 248px;
+  height: 248px;
+  margin: 2px;
 }
 
-.innerImgBox {
-  flex-flow: row wrap;
-}
-
-.innerImgBox > img {
-  display: flex;
-  margin: 3px;
+#preview {
+  grid-area: prev;
+  width: 500px;
+  height: 500px;
 }
 
 .reserve {
@@ -112,25 +113,13 @@
 }
 
 
-
-/*  spotsindex*/
-/* #indexBox {
-  display: flex;
-  align-items: center;
-  justify-content: start;
-} */
-
 .imgtop {
   height: 350px;
   width: 350px;
 }
 
 .spotBox {
-  display: flex;
-  height: 370px;
-  width: 350px;
-  flex: 1 1 25%;
-  
+  margin: 2em;
 }
 
 .marginForCard {
@@ -179,8 +168,3 @@
 #indexBox a {
   display: flex;
 }
-
-/* .child-box {
-flex: 1;
-flex-basis: 23%;
-} */

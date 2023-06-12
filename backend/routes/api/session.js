@@ -148,7 +148,7 @@ router.get('/reviews', requireAuth, async (req, res, next) => {
     
     const currReview = await Review.findByPk(review.id);
     let rImages = await currReview.getReviewImages({attributes: ['id', 'url']});
-    if (!rImages || !rImages.length) rImages = 'No image';
+    if (!rImages || !rImages.length) rImages = null;
     const spotInfo = await Spot.findByPk(review.spotId, {attributes: {exclude: ['name', 'description', 'createdAt', 'updatedAt']} , raw: true});
 
     review.User = await User.findByPk(review.userId, {attributes: ['id', 'firstName', 'lastName']});

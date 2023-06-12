@@ -19,8 +19,7 @@ const SpotsIndex = () => {
         <div id='indexBox'>
             {spots.map((spot) => (
                 <SpotsIndexItem spot={spot} key={spot.id}/>
-            ))
-            }
+            ))}
         </div>
 
     )
